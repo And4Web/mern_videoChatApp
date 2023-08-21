@@ -12,4 +12,13 @@ app.use(cors());
 
 const server = http.createServer(app);
 
-server.listen(PORT, ()=>console.log(`SERVER is listening at PORT-${PORT}.`));
+mongoose.connect(process.env.MONGO_URI).then(()=>{
+  server.listen(PORT, ()=>{
+    console.log("~-MongoDB connection successfull.");
+    console.log(`~-SERVER is listening at PORT-${PORT}.`);
+  });
+}).catch(err=>{
+  console.log("~-MongoDB connection failed. Server failed to start.");
+  console.error("~-MongoDB ERROR: ", err);
+})
+
