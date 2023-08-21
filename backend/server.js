@@ -19,7 +19,7 @@ const authRoutes = require('./routers/authRoutes');
 app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res)=>{
-  return res.status(200).json({"message": "Hello world!"})
+  return res.status(200).json({"message": "Discord Video chat app."})
 })
 
 // Create server
