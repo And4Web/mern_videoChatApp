@@ -14,7 +14,7 @@ const server = http.createServer(app);
 
 mongoose.connect(process.env.MONGO_URI).then(()=>{
   server.listen(PORT, ()=>{
-    console.log("~-MongoDB connection successfull.");
+    console.log("~-MongoDB connection successful.");
     console.log(`~-SERVER is listening at PORT-${PORT}.`);
   });
 }).catch(err=>{
