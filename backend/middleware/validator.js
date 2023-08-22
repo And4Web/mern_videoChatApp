@@ -1,14 +1,21 @@
-const joiValidator = (schema) => {
-  return async (req, res, next) => {
-    const {error, value} = await schema.validate(req.body)
-    if(!error){
-      console.log("validation success: ", value);
-      next()
-    }else{
-      console.log("JOI validation ERROR: ", error)
-      return res.status(400).json({"Validation Error ": error})
-    }
-  }
-}
+const Joi = require('joi');
 
-module.exports = joiValidator;
+const joiValidator = (schema) => (payload) => schema.validate(payload, {abortEarly: false})
+
+
+const registerSchema = Joi.object({
+  username: Joi.string().min(3).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required()
+});
+
+const loginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required()
+});
+
+
+module.exports = {
+  registerValidator: joiValidator(registerSchema),
+  loginValidator: joiValidator(loginSchema)
+};
