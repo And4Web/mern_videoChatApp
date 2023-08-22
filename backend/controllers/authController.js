@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 
 const { registerValidator, loginValidator } = require("../utils/validator");
 
@@ -34,14 +35,16 @@ exports.register = async (req, res) => {
 
       // create JWT token
 
-      const token = "JWT_TOKEN_DISCORD_VIDEO_CHAT_APP";
+      const token = jwt.sign({
+       username, email
+      }, process.env.JWT_SECRET_KEY, {expiresIn: '2h'});
 
       // save the user in database after JWT authentication
       newUser.save();
 
       return res.status(200).json({
         message: "Register successfully done. New user created.",
-        userDetails: { email, username },
+        userDetails: { email, username }, token
       });
     }
   } catch (error) {
@@ -70,7 +73,7 @@ exports.login = async (req, res) => {
       if (user && (await bcrypt.compare(password, user.password))) {
         const {username, _id} = user;
         // send JWT token
-        const token = "JWT_TOKEN_DISCORD_VIDEO_CHAT_APP";
+        const token = jwt.sign({username, _id}, process.env.JWT_SECRET_KEY, {expiresIn: '24h'});
 
         // login success
         return res.status(200).json({ "Login successfully validated": {_id, username, token} });
