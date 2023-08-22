@@ -1,14 +1,14 @@
-const {registerValidator, loginValidator} = require('../middleware/validator');
+const {registerValidator, loginValidator} = require('../utils/validator');
 
 
 exports.register = async (req, res) => {
   console.log(`Request made to the endpoint: ${req.url}`);
   const {error, value} = registerValidator(req.body);
   if(error){
-    console.log("JOI validation ERROR: ", error.details);
     const returnError = error.details.map(error=>{
       return error.message
     });
+    console.log("JOI validation ERROR: ", returnError);
     return res.status(400).json({"Joi validation Error while REGISTER":returnError})
   }else{
     const {email, username} = value;
@@ -22,10 +22,10 @@ exports.login = async (req, res) => {
   console.log(`Request made to the endpoint: ${req.url}`);
   const {error, value} = loginValidator(req.body);
   if(error){
-    console.log("JOI validation ERROR: ", error.details);
     const returnError = error.details.map(error=>{
       return error.message
     });
+    console.log("JOI validation ERROR: ", returnError);
     return res.status(400).json({"Joi validation Error while LOGIN":returnError})
   }else{
     const {email} = value;

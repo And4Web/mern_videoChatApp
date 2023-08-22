@@ -28,11 +28,11 @@ const server = http.createServer(app);
 // Connect Database
 mongoose.connect(process.env.MONGO_URI).then(()=>{
   server.listen(PORT, ()=>{
-    console.log("~-MongoDB connection successful.");
-    console.log(`~-SERVER is listening at PORT-${PORT}.`);
+    console.log("~- MongoDB connection successful...");
+    console.log(`~- SERVER is listening at PORT-${PORT}...`);
   });
 }).catch(err=>{
-  console.log("~-MongoDB connection failed. Server failed to start.");
-  console.error("~-MongoDB ERROR: ", err);
+  console.log("~- MongoDB connection failed. Server failed to start...");
+  console.error("~- DATABASE ERROR >>> ", err);
 })
 
