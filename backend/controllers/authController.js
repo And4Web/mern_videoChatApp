@@ -71,9 +71,9 @@ exports.login = async (req, res) => {
       
       // compare the password with the hashed password in database
       if (user && (await bcrypt.compare(password, user.password))) {
-        const {username, _id} = user;
+        const {username, _id, email} = user;
         // send JWT token
-        const token = jwt.sign({username, _id}, process.env.JWT_SECRET_KEY, {expiresIn: '24h'});
+        const token = jwt.sign({username, _id, email}, process.env.JWT_SECRET_KEY, {expiresIn: '24h'});
 
         // login success
         return res.status(200).json({ "Login successfully validated": {_id, username, token} });
