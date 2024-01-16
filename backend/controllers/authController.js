@@ -43,12 +43,12 @@ exports.register = async (req, res) => {
       newUser.save();
 
       return res.status(200).json({
-        message: "Register successfully done. New user created.",
+        message: "Registration successfully done. New user created.",
         userDetails: { email, username }, token
       });
     }
   } catch (error) {
-    console.log("register ERROR >>> ", error.message);
+    console.log("new registration ERROR >>> ", error.message);
   }
 };
 

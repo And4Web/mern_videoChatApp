@@ -5,7 +5,7 @@ const verifyToken = (req, res, next) => {
   if (!token) {
     return res
       .status(403)
-      .json({ message: "A token is required for authentication." });
+      .json({ message: "A valid token is required for authentication." });
   }
   try {
     token = token.replace(/^Bearer\s+/, "");
