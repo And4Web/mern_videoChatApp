@@ -11,7 +11,6 @@ function App() {
 
   return (
     <div >
-     <h1>Video chat app</h1>
      <Routes>
       <Route exact path="/login" element={<LoginPage/>}></Route>
       <Route exact path="/register" element={<RegisterPage/>}></Route>

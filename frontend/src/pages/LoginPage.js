@@ -1,8 +1,9 @@
 import React from 'react'
+import AuthBox from '../shared/components/AuthBox'
 
 function LoginPage() {
   return (
-    <div>LoginPage</div>
+    <AuthBox>LoginPage</AuthBox>
   )
 }
 
