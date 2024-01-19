@@ -17,13 +17,14 @@ function AuthBox(props) {
     <BoxWrapper>
       <Box sx={{
         width: 700,
-        height: 400,
+        height: "auto",
         bgcolor: "#2E2E2E", //login/register box dark grey color
         borderRadius: "5px",
         boxShadow: "0 2px 10px 0 rgb(0 0 0 / 20%)",
         display: "flex",
         flexDirection: "column",
-        padding: "25px",
+        padding: "35px 15px",
+        margin: "1.5rem",
         color: "#E8E8E8"  //login/register box text white color
       }}>{props.children}</Box>
     </BoxWrapper>
