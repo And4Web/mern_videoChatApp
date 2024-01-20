@@ -1,6 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 import { styled } from '@mui/system';
+import {Tooltip} from '@mui/material';
 import InputComponent from './InputComponent';
 import CustomButton from './CustomButton'; 
 import RedirectInfo from './RedirectInfo';
@@ -11,6 +12,13 @@ const FormWrapper = styled("div")({
   alignItems: "center",
   justifyContent: "center"
 });
+
+const getFormValid = () => {
+  return 'Press to Log in'
+}
+const getFormNotValid = () => {
+  return 'Enter correct Email and Password'
+}
 
 function LoginForm({mail, setMail, password, setPassword, isFormValid, handleLogin}) {
   const navigate = useNavigate();
@@ -23,7 +31,11 @@ function LoginForm({mail, setMail, password, setPassword, isFormValid, handleLog
      
      <InputComponent value={password} setValue={setPassword} label="Pasword" type="password" placeholder="Enter Password"></InputComponent>
 
-     <CustomButton label="Login" additionalStyles={{marginTop: "30px"}} disabled={!isFormValid} onClick={handleLogin}></CustomButton>
+    <Tooltip title={isFormValid ? getFormValid() : getFormNotValid()}>
+      <div>
+      <CustomButton label="Login" additionalStyles={{marginTop: "30px"}} disabled={!isFormValid} onClick={handleLogin}></CustomButton>
+      </div>
+    </Tooltip>
 
      <RedirectInfo text="Don't have an account yet? " redirectText="Register here" handleRedirect={handleRedirect} additionalStyles={{margin: "1rem"}}/>
     </FormWrapper>

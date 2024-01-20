@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
+import { Tooltip } from "@mui/material";
 import InputComponent from "./InputComponent";
 import CustomButton from "./CustomButton";
 import RedirectInfo from "./RedirectInfo";
 
+const getFormValid = () => {
+  return "Press for a new registration";
+};
+const getFormNotValid = () => {
+  return "Enter all the fields correctly";
+};
 
 function RegisterForm(props) {
   const {
@@ -17,20 +24,20 @@ function RegisterForm(props) {
     confirmPassword,
     setConfirmPassword,
     isFormValid,
-    handleRegister
+    handleRegister,
   } = props;
 
   const FormWrapper = styled("div")({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   });
 
   const navigate = useNavigate();
   const handleRedirect = () => {
     navigate("/login");
-  }
+  };
 
   return (
     <FormWrapper>
@@ -62,8 +69,23 @@ function RegisterForm(props) {
         type="password"
         placeholder="Confirm Password"
       ></InputComponent>
-      <CustomButton label="Register" additionalStyles={{marginTop: "30px"}} disabled={!isFormValid} onClick={handleRegister}></CustomButton>
-      <RedirectInfo text="Already have an account? " redirectText="Login here" handleRedirect={handleRedirect} additionalStyles={{margin: "1rem"}}/>
+
+      <Tooltip title={isFormValid ? getFormValid() : getFormNotValid()}>
+        <div>
+          <CustomButton
+            label="Register"
+            additionalStyles={{ marginTop: "30px" }}
+            disabled={!isFormValid}
+            onClick={handleRegister}
+          ></CustomButton>
+        </div>
+      </Tooltip>
+      <RedirectInfo
+        text="Already have an account? "
+        redirectText="Login here"
+        handleRedirect={handleRedirect}
+        additionalStyles={{ margin: "1rem" }}
+      />
     </FormWrapper>
   );
 }
