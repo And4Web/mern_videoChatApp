@@ -17,8 +17,6 @@ function LoginPage() {
 
   const handleLogin = () => {
     console.log({mail, password, isFormValid})
-    // console.log({password})
-    // console.log({isFormValid})
     setMail("")
     setPassword("")
   }

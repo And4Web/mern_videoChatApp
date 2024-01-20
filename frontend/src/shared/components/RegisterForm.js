@@ -13,6 +13,13 @@ const getFormNotValid = () => {
   return "Enter all the fields correctly";
 };
 
+const FormWrapper = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
 function RegisterForm(props) {
   const {
     name,
@@ -26,13 +33,6 @@ function RegisterForm(props) {
     isFormValid,
     handleRegister,
   } = props;
-
-  const FormWrapper = styled("div")({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  });
 
   const navigate = useNavigate();
   const handleRedirect = () => {

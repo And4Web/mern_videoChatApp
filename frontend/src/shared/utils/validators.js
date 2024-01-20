@@ -3,6 +3,16 @@ export const validateLoginForm = (mail, password) => {
   const isPasswordValid = validatePassword(password)
   return  isMailValid && isPasswordValid
 }
+export const validateRegisterForm = (name, mail, password) => {
+  const isNameValid = validateName(name)
+  const isMailValid = validateMail(mail)
+  const isPasswordValid = validatePassword(password)
+  return  isMailValid && isPasswordValid && isNameValid
+}
+
+const validateName = (name) => {
+  return name.length > 2
+}
 
 const validateMail = (mail) => {
   const mailPattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
