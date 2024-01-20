@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import { styled } from "@mui/system";
 import InputComponent from "./InputComponent";
 import CustomButton from "./CustomButton";
+import RedirectInfo from "./RedirectInfo";
 
 
 function RegisterForm(props) {
@@ -24,6 +26,11 @@ function RegisterForm(props) {
     alignItems: "center",
     justifyContent: "center"
   });
+
+  const navigate = useNavigate();
+  const handleRedirect = () => {
+    navigate("/login");
+  }
 
   return (
     <FormWrapper>
@@ -56,6 +63,7 @@ function RegisterForm(props) {
         placeholder="Confirm Password"
       ></InputComponent>
       <CustomButton label="Register" additionalStyles={{marginTop: "30px"}} disabled={!isFormValid} onClick={handleRegister}></CustomButton>
+      <RedirectInfo text="Already have an account? " redirectText="Login here" handleRedirect={handleRedirect} additionalStyles={{margin: "1rem"}}/>
     </FormWrapper>
   );
 }

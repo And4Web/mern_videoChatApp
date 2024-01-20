@@ -6,7 +6,7 @@ import LoginForm from '../shared/components/LoginForm';
 function LoginPage() {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
-  const [isFormValid, setIsFormValid] = useState(true);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleLogin = () => {}
   

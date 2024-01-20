@@ -8,7 +8,7 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isFormValid, setIsFormValid] = useState(true);
+  const [isFormValid, setIsFormValid] = useState(false);
   
 
   const handleRegister = () => {}
