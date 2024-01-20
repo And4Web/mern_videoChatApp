@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { styled } from "@mui/system";
 import InputComponent from "./InputComponent";
+import CustomButton from "./CustomButton";
 
 
 function RegisterForm(props) {
@@ -13,11 +14,19 @@ function RegisterForm(props) {
     setPassword,
     confirmPassword,
     setConfirmPassword,
+    isFormValid,
+    handleRegister
   } = props;
 
+  const FormWrapper = styled("div")({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center"
+  });
 
   return (
-    <>
+    <FormWrapper>
       <InputComponent
         value={name}
         setValue={setName}
@@ -46,7 +55,8 @@ function RegisterForm(props) {
         type="password"
         placeholder="Confirm Password"
       ></InputComponent>
-    </>
+      <CustomButton label="Register" additionalStyles={{marginTop: "30px"}} disabled={!isFormValid} onClick={handleRegister}></CustomButton>
+    </FormWrapper>
   );
 }
 

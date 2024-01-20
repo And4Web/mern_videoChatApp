@@ -37,6 +37,7 @@ const Input = styled("input")({
 
 function InputComponent(props) {
   const { label, value, setValue, type, placeholder } = props;
+  // console.log("inputcomponent props: ",props)
   const handleChange = (e) => {
     setValue(e.target.value);
   };
