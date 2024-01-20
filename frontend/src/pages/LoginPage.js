@@ -1,14 +1,27 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import AuthBox from '../shared/components/AuthBox';
 import {Typography} from '@mui/material';
 import LoginForm from '../shared/components/LoginForm';
+
+import { validateLoginForm } from '../shared/utils/validators';
 
 function LoginPage() {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
 
-  const handleLogin = () => {}
+  useEffect(()=>{
+    setIsFormValid(validateLoginForm(mail, password))
+  }, [mail, password, setIsFormValid])
+
+
+  const handleLogin = () => {
+    console.log({mail, password, isFormValid})
+    // console.log({password})
+    // console.log({isFormValid})
+    setMail("")
+    setPassword("")
+  }
   
   return (
     <AuthBox>
