@@ -6,11 +6,11 @@ export const authActions = {
 
 export const getActions = (dispatch) => {
   return {
-    login: (userDetails)=>{
-      dispatch(login(userDetails))
+    login: (userDetails, navigate)=>{
+      dispatch(login(userDetails, navigate))
     },
-    register: (userDetails)=>{
-      dispatch(register(userDetails))
+    register: (userDetails, navigate)=>{
+      dispatch(register(userDetails, navigate))
     },
   }
 }
@@ -22,7 +22,7 @@ const setUserDetails = (userDetails) => {
   }
 }
 
-const login = (userDetails) => {
+const login = (userDetails, navigate) => {
   return async (dispatch) => {
     const response = await api.login(userDetails);
     if(response.error){
@@ -32,11 +32,12 @@ const login = (userDetails) => {
       localStorage.setItem("user", JSON.stringify(userDetails));
 
       dispatch(setUserDetails(userDetails));
+      navigate('/dashboard')
     }
   }
 }
 
-const register = (userDetails) => {
+const register = (userDetails, navigate) => {
   return async (dispatch) => {
     const response = await api.register(userDetails);
     if(response.error){
@@ -46,6 +47,7 @@ const register = (userDetails) => {
       localStorage.setItem("user", JSON.stringify(userDetails));
 
       dispatch(setUserDetails(userDetails));
+      navigate('/dashboard')
     }
   }
 }

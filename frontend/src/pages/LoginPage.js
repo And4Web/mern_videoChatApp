@@ -3,12 +3,20 @@ import AuthBox from '../shared/components/AuthBox';
 import {Typography} from '@mui/material';
 import LoginForm from '../shared/components/LoginForm';
 
+import {useNavigate} from 'react-router-dom';
+import {connect} from 'react-redux'
+
+import {getActions} from '../redux/actions/authActions';
 import { validateLoginForm } from '../shared/utils/validators';
 
-function LoginPage() {
+function LoginPage(props) {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
+
+  const navigate = useNavigate();
+
+  const {login} = props;
 
   useEffect(()=>{
     setIsFormValid(validateLoginForm(mail, password))
@@ -16,9 +24,9 @@ function LoginPage() {
 
 
   const handleLogin = () => {
-    console.log({mail, password, isFormValid})
-    setMail("")
-    setPassword("")
+    const userDetails = {mail, password};
+
+    login(userDetails, navigate);
   }
   
   return (
@@ -31,4 +39,10 @@ function LoginPage() {
   )
 }
 
-export default LoginPage
+const mapActionsToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch)
+  }
+}
+
+export default connect(null, mapActionsToProps)(LoginPage)

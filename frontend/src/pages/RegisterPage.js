@@ -4,25 +4,30 @@ import {Typography} from '@mui/material';
 import RegisterForm from '../shared/components/RegisterForm';
 import { validateRegisterForm } from '../shared/utils/validators';
 
-function RegisterPage() {
+import {useNavigate} from 'react-router-dom';
+import {connect} from 'react-redux'
+
+import {getActions} from '../redux/actions/authActions';
+
+function RegisterPage(props) {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
   
+  const navigate = useNavigate();
+
+  const {register} = props;
 
   useEffect(()=>{
     setIsFormValid(validateRegisterForm(name, mail, password))
   }, [name, mail, password, setIsFormValid])
 
   const handleRegister = () => {
-    console.log({mail, password, isFormValid})
-    setMail("")
-    setPassword("")
-    setName("")
-    setConfirmPassword("")
-    setIsFormValid(false)
+    const userDetails = {mail, password, name};
+
+    register(userDetails, navigate);
   }
 
   return (
