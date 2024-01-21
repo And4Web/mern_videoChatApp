@@ -22,10 +22,10 @@ const FormWrapper = styled("div")({
 
 function RegisterForm(props) {
   const {
-    name,
-    setName,
-    mail,
-    setMail,
+    username,
+    setUsername,
+    email,
+    setEmail,
     password,
     setPassword,
     confirmPassword,
@@ -42,16 +42,16 @@ function RegisterForm(props) {
   return (
     <FormWrapper>
       <InputComponent
-        value={name}
-        setValue={setName}
-        label="Name"
+        value={username}
+        setValue={setUsername}
+        label="username"
         type="text"
-        placeholder="Enter your Name"
+        placeholder="Enter your username"
       ></InputComponent>
       <InputComponent
-        value={mail}
-        setValue={setMail}
-        label="E-mail"
+        value={email}
+        setValue={setEmail}
+        label="E-email"
         type="email"
         placeholder="Enter Email"
       ></InputComponent>

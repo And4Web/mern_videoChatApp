@@ -2,14 +2,15 @@ import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
-const apiClient = axios.create({
-  baseUrl,
-  timeout: 1000
-})
+// const apiClient = axios.create({
+//   baseUrl,
+//   timeout: 1000
+// })
 
 export const login = async (data) => {
   try {
-    return await apiClient.post('/auth/login', data);
+    // console.log("api.js request URL: ", baseUrl)
+    return await axios.post(`${baseUrl}/auth/login`, data);
   } catch (exception) {
     console.log(exception);
     return {
@@ -21,7 +22,8 @@ export const login = async (data) => {
 
 export const register = async (data) => {
   try {
-    return await apiClient.post('/auth/register', data)
+    // console.log("api.js request client: ", apiClient)
+    return await axios.post(`${baseUrl}/auth/register`, data)
   } catch (exception) {
     console.log(exception);
     return {

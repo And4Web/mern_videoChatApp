@@ -75,8 +75,10 @@ exports.login = async (req, res) => {
         // send JWT token
         const token = jwt.sign({username, _id, email}, process.env.JWT_SECRET_KEY, {expiresIn: '24h'});
 
+        
+
         // login success
-        return res.status(200).json({ "Login successfully validated": {_id, username, token} });
+        return res.status(200).json({ message: "Login successfully validated", userDetails: {_id, email, username }, token });
       } else {
         return res.status(404).json({"Login failed": "User not found or password did not match. Try again"})
       }

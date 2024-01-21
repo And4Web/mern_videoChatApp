@@ -11,7 +11,7 @@ router.post('/login', login)
 
 router.post('/register', register)
 
-// test the atuth middleware
+// test the auth middleware
 router.get('/test', auth, (req, res)=>{
   const user = req.user;
   return res.status(200).json({'message': user})

@@ -25,6 +25,9 @@ const setUserDetails = (userDetails) => {
 const login = (userDetails, navigate) => {
   return async (dispatch) => {
     const response = await api.login(userDetails);
+
+    console.log("authActions.js response: ", response.data)
+
     if(response.error){
       //show error message in alert
     }else{
@@ -40,6 +43,9 @@ const login = (userDetails, navigate) => {
 const register = (userDetails, navigate) => {
   return async (dispatch) => {
     const response = await api.register(userDetails);
+
+    console.log("authActions.js response: ", response)
+
     if(response.error){
       //show error message in alert
     }else{

@@ -20,14 +20,14 @@ const getFormNotValid = () => {
   return 'Enter correct Email and Password'
 }
 
-function LoginForm({mail, setMail, password, setPassword, isFormValid, handleLogin}) {
+function LoginForm({email, setEmail, password, setPassword, isFormValid, handleLogin}) {
   const navigate = useNavigate();
   const handleRedirect = () => {
     navigate("/register");
   }
   return (
     <FormWrapper>     
-     <InputComponent value={mail} setValue={setMail} label="E-mail" type="text" placeholder="Enter Email"></InputComponent>
+     <InputComponent value={email} setValue={setEmail} label="E-mail" type="text" placeholder="Enter Email"></InputComponent>
      
      <InputComponent value={password} setValue={setPassword} label="Pasword" type="password" placeholder="Enter Password"></InputComponent>
 

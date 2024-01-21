@@ -10,7 +10,7 @@ import {getActions} from '../redux/actions/authActions';
 import { validateLoginForm } from '../shared/utils/validators';
 
 function LoginPage(props) {
-  const [mail, setMail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -19,12 +19,12 @@ function LoginPage(props) {
   const {login} = props;
 
   useEffect(()=>{
-    setIsFormValid(validateLoginForm(mail, password))
-  }, [mail, password, setIsFormValid])
+    setIsFormValid(validateLoginForm(email, password))
+  }, [email, password, setIsFormValid])
 
 
   const handleLogin = () => {
-    const userDetails = {mail, password};
+    const userDetails = {email, password};
 
     login(userDetails, navigate);
   }
@@ -34,7 +34,7 @@ function LoginPage(props) {
       <Typography variant='h6' sx={{color: "#999999"}}>Welcome, It feels good to see you Back!</Typography>
       <Typography variant='h4'>Login Now</Typography>
       
-      <LoginForm mail={mail} setMail={setMail} password={password} setPassword={setPassword} isFormValid={isFormValid} handleLogin={handleLogin}/>
+      <LoginForm email={email} setEmail={setEmail} password={password} setPassword={setPassword} isFormValid={isFormValid} handleLogin={handleLogin}/>
     </AuthBox>
   )
 }
