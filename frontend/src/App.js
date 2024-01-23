@@ -7,6 +7,8 @@ import RegisterPage from './pages/RegisterPage';
 import Dashboard from './pages/Dashboard';
 import Protected from './pages/Protected';
 
+import AlertNotification from './shared/components/AlertNotification';
+
 function App() {
 
   return (
@@ -16,6 +18,7 @@ function App() {
       <Route exact path="/register" element={<RegisterPage/>}></Route>
       <Route exact path="/" element={<Protected><Dashboard/></Protected>}></Route>
      </Routes>
+     <AlertNotification/>
     </div>
   );
 }
