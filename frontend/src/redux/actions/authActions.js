@@ -28,13 +28,14 @@ const login = (userDetails, navigate) => {
   return async (dispatch) => {
     const response = await api.login(userDetails);
 
-    console.log("authActions.js response: ", response.exception.message)
+    console.log("authActions.js response: ", response)
 
     if(response.error){
       //show error message in alert
-      dispatch(showAlert(response.exception.message))
+      // dispatch(showAlert(response.exception?.message))
+      dispatch(showAlert(response.exception?.response?.data?.message))
     }else{
-      const {userDetails} = response.data;
+      const {userDetails} = response?.data;
       localStorage.setItem("user", JSON.stringify(userDetails));
 
       dispatch(setUserDetails(userDetails));
@@ -51,7 +52,8 @@ const register = (userDetails, navigate) => {
 
     if(response.error){
       //show error message in alert
-      dispatch(showAlert(response.exception.message))
+      // dispatch(showAlert(response.exception?.message))
+      dispatch(showAlert(response.exception?.response?.data?.message))
     }else{
       const {userDetails} = response.data;
       localStorage.setItem("user", JSON.stringify(userDetails));

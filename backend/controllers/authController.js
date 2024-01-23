@@ -15,13 +15,13 @@ exports.register = async (req, res) => {
       console.log("JOI validation ERROR: ", returnError);
       return res
         .status(400)
-        .json({ "Joi validation Error while REGISTER": returnError });
+        .json({ message: returnError, success: false});
     } else {
       const { email, username, password } = value;
       // check if the user already exists by email
       const userExists = await User.exists({ email });
       if (userExists) {
-        return res.status(409).json({ message: "user already exists." });
+        return res.status(409).json({ message: "user already exists.", success: false});
       }
       // encrypt the password
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -40,7 +40,7 @@ exports.register = async (req, res) => {
       }, process.env.JWT_SECRET_KEY, {expiresIn: '2h'});
 
       // save the user in database after JWT authentication
-      newUser.save();
+      await newUser.save();
 
       return res.status(200).json({
         message: "Registration successfully done. New user created.",
@@ -73,9 +73,7 @@ exports.login = async (req, res) => {
       if (user && (await bcrypt.compare(password, user.password))) {
         const {username, _id, email} = user;
         // send JWT token
-        const token = jwt.sign({username, _id, email}, process.env.JWT_SECRET_KEY, {expiresIn: '24h'});
-
-        
+        const token = jwt.sign({username, _id, email}, process.env.JWT_SECRET_KEY, {expiresIn: '24h'});        
 
         // login success
         return res.status(200).json({ message: "Login successfully validated", success: true, userDetails: {_id, email, username }, token });
