@@ -8,8 +8,9 @@ import Dashboard from './pages/Dashboard';
 import Protected from './pages/Protected';
 
 import AlertNotification from './shared/components/AlertNotification';
+import {connect} from 'react-redux';
 
-function App() {
+function App(props) {
 
   return (
     <div >
@@ -18,9 +19,15 @@ function App() {
       <Route exact path="/register" element={<RegisterPage/>}></Route>
       <Route exact path="/" element={<Protected><Dashboard/></Protected>}></Route>
      </Routes>
-     <AlertNotification/>
+     {props.alert.showAlert && <AlertNotification/>}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    alert: state.alert
+  }
+}
+
+export default connect(mapStateToProps)(App);

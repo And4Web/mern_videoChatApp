@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
       console.log("JOI validation ERROR: ", returnError);
       return res
         .status(400)
-        .json({ "Joi validation Error while LOGIN": returnError });
+        .json({ message: returnError, success: false});
     } else {
       const { email, password } = value;
       // find the user in the database
@@ -78,9 +78,9 @@ exports.login = async (req, res) => {
         
 
         // login success
-        return res.status(200).json({ message: "Login successfully validated", userDetails: {_id, email, username }, token });
+        return res.status(200).json({ message: "Login successfully validated", success: true, userDetails: {_id, email, username }, token });
       } else {
-        return res.status(404).json({"Login failed": "User not found or password did not match. Try again"})
+        return res.status(404).json({message: "User not found or password did not match. Try again", success: false})
       }
     }
   } catch (error) {
