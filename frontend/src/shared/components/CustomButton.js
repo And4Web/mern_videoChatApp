@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 
 function CustomButton(props) {
   const {label, additionalStyles, disabled, onClick} = props;
-  // console.log("props: ", props)
+  
   return (
     <div>
       <Button variant='contained' sx={{
@@ -12,8 +12,8 @@ function CustomButton(props) {
         textTransform: "none",
         fontSize: "16px",
         fontWeight: 500,
-        width: "23.5rem",
-        height: "2.5rem",
+        // width: "23.5rem",
+        // height: "2.5rem",
         // margin: "20px 28px", 
         cursor: "pointer"       
       }}

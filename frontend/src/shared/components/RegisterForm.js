@@ -74,7 +74,11 @@ function RegisterForm(props) {
         <div>
           <CustomButton
             label="Register"
-            additionalStyles={{ marginTop: "30px" }}
+            additionalStyles={{
+              marginTop: "30px",
+              width: "23.5rem",
+              height: "2.5rem",
+            }}
             disabled={!isFormValid}
             onClick={handleRegister}
           ></CustomButton>
