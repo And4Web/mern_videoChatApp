@@ -1,5 +1,6 @@
 import React from 'react'
 import { styled } from '@mui/system';
+import AddFriendButton from './AddFriendButton';
 
 const MainContainer = styled("div")({
   width: "45%",
@@ -13,7 +14,9 @@ const MainContainer = styled("div")({
 
 function FriendsSidebar() {
   return (
-    <MainContainer>FriendsSidebar</MainContainer>
+    <MainContainer>
+      <AddFriendButton/>
+    </MainContainer>
   )
 }
 
