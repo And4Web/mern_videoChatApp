@@ -51,7 +51,7 @@ function RegisterForm(props) {
       <InputComponent
         value={email}
         setValue={setEmail}
-        label="E-email"
+        label="E-mail"
         type="email"
         placeholder="Enter Email"
       ></InputComponent>

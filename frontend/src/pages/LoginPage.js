@@ -25,7 +25,6 @@ function LoginPage(props) {
 
   const handleLogin = () => {
     const userDetails = {email, password};
-
     login(userDetails, navigate);
   }
   
