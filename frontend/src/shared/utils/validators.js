@@ -10,11 +10,11 @@ export const validateRegisterForm = (name, mail, password) => {
   return  isMailValid && isPasswordValid && isNameValid
 }
 
-const validateName = (name) => {
+export const validateName = (name) => {
   return name.length > 2
 }
 
-const validateMail = (mail) => {
+export const validateMail = (mail) => {
   const mailPattern = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   return mailPattern.test(mail);
 }
