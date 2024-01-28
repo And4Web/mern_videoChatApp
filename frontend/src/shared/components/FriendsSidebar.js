@@ -19,7 +19,7 @@ function FriendsSidebar() {
   return (
     <MainContainer>
       <AddFriendButton/>
-      <FriendTitle title="Private message"/>
+      <FriendTitle title="Private messages"/>
       <FriendsList/>
       <FriendTitle title="Pending requests"/>
       <PendingFriendsRequests/>

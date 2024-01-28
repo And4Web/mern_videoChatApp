@@ -1,5 +1,6 @@
 import React from 'react'
 import {styled} from '@mui/system';
+import PendingFriendsRequestsItem from './PendingFriendsRequestsItem';
 
 const MainContainer = styled("div")({
   height: "25%",
@@ -10,9 +11,37 @@ const MainContainer = styled("div")({
   overflow: "auto"
 });
 
+const dummyInvitations = [
+  {
+    id: "1",
+    senderId: {
+      username: "Girdhar",
+      mail: "girdhar@gmail.com"
+    }
+  },
+  {
+    id: "2",
+    senderId: {
+      username: "Samyukta",
+      mail: "samyukta@gmail.com"
+    }
+  },
+]
+
 function PendingFriendsRequests() {
   return (
-    <MainContainer>PendingFriendsRequests</MainContainer>
+    <MainContainer>
+      {dummyInvitations.map(i=>(
+        <>
+          <PendingFriendsRequestsItem
+            key={i.id}
+            id={i.id}
+            username={i.senderId.username}
+            mail={i.senderId.mail}
+          />
+        </>
+      ))}
+    </MainContainer>
   )
 }
 
