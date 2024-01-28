@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '@mui/material/Button';
 import Avatar from './Avatar';
 import Typography from '@mui/material/Typography'
+import OnlineIndicator from './OnlineIndicator';
 
 function FriendsListItem({username, id, isOnline}) {
   return (
@@ -15,6 +16,9 @@ function FriendsListItem({username, id, isOnline}) {
       textTransform: "none",
       color: "black",
       position: 'relative',
+      paddingBottom: "1rem",
+      borderBottom: "1px solid black",
+      
     }}>
       <Avatar username={username}/>
         <Typography style={{
@@ -22,6 +26,7 @@ function FriendsListItem({username, id, isOnline}) {
           fontWeight: 500,
           color: "#8e9297"
         }} variant='subtitle1' align='left'>{username}</Typography>
+        {isOnline && <OnlineIndicator/>}
     </Button>
   )
 }
