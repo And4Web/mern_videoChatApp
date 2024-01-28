@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Tooltip, Typography, Box }from '@mui/material'
 import Avatar from './Avatar';
+import InvitationDecisionButtons from './InvitationDecisionButtons';
 
 function PendingFriendsRequestsItem({
   id, username, mail,
@@ -36,6 +37,11 @@ function PendingFriendsRequestsItem({
             color: "#8e9297",
             flexGrow: 1
           }} variant='subtitle1'>{username}</Typography>
+          <InvitationDecisionButtons
+            disabled={buttonDisabled}
+            acceptInvitationHandler={handleAcceptInvitation}
+            rejectInvitationHandler={handleRejectInvitation}
+          />
         </Box>
       </div>
     </Tooltip>
