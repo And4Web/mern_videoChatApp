@@ -7,6 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 
 import { validateMail } from "../utils/validators";
 import InputComponent from './InputComponent';
+import CustomButton from "./CustomButton";
 import Typography from "@mui/material/Typography";
 
 function AddFriendDialog({
@@ -49,6 +50,14 @@ function AddFriendDialog({
           placeholder="Enter mail address"
         />
       </DialogContent>
+      <DialogActions>
+        <CustomButton 
+        label="Send" 
+        onClick={handleSendInvitation}
+        additionalStyles={{margin: "1rem"}}
+        disabled={!isFormValid}
+        />
+      </DialogActions>
     </Dialog>
   );
 }
