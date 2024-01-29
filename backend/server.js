@@ -26,6 +26,8 @@ app.get('/', (req, res)=>{
 
 // Create server
 const server = http.createServer(app);
+
+// Socket server integration
 socketServer(server)
 
 // Connect Database
