@@ -14,5 +14,7 @@ export const connectWithSocketServer = (userDetails) => {
   socket.on("connect", ()=>{
     console.log("successfully connected to a socket server.");
     console.log("new socket: ", socket.id);
+
+    
   })
 }
