@@ -10,6 +10,8 @@ import { logout } from '../shared/utils/auth';
 import {getActions} from '../redux/actions/authActions';
 import {connect} from 'react-redux';
 
+import {connectWithSocketServer} from '../realtimeComm/socketConnection';
+
 const Wrapper = styled("div")({
   width: "100%",
   height: "100vh",
@@ -25,6 +27,7 @@ function Dashboard({setUserDetails}) {
       logout()
     }else{
       setUserDetails(JSON.parse(userDetails))
+      connectWithSocketServer()
     }
   },[])
   return (
