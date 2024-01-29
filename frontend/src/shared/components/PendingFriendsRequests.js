@@ -22,8 +22,8 @@ const dummyInvitations = [
   {
     id: "2",
     senderId: {
-      username: "Samyukta",
-      mail: "samyukta@gmail.com"
+      username: "Sakshi",
+      mail: "sakshi@gmail.com"
     }
   },
 ]

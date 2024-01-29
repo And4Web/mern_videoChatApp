@@ -8,16 +8,16 @@ function PendingFriendsRequestsItem({
   acceptFriendInvitation = () => {},
   rejectFriendInvitation = () => {}
 }) {
-  const [buttonDisabled, setbuttonDisabled] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   
   const handleAcceptInvitation = () => {
     acceptFriendInvitation({id});
-    setbuttonDisabled(true)
+    setButtonDisabled(true)
   }
 
   const handleRejectInvitation = () => {
     rejectFriendInvitation({id});
-    setbuttonDisabled(true);
+    setButtonDisabled(true);
   }
   return (
     <Tooltip title={mail}>
