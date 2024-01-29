@@ -1,4 +1,4 @@
-const addNewConnectedUser = require('../serverStore');
+const {addNewConnectedUser} = require('../serverStore');
 
 const newConnectionHandler = async (socket, io) => {
 
