@@ -9,17 +9,25 @@ import { validateMail } from "../utils/validators";
 import InputComponent from './InputComponent';
 import CustomButton from "./CustomButton";
 import Typography from "@mui/material/Typography";
+import {connect} from 'react-redux';
+import {getActions} from '../../redux/actions/friendsActions';
 
-function AddFriendDialog({
-  isDialogOpen,
-  closeDialogHandler,
-  sendFriendInvitation = () => {},
-}) {
+function AddFriendDialog(props) {
   const [mail, setMail] = useState("");
   const [isFormValid, setIsFormValid] = useState("");
 
+  const { isDialogOpen,
+    closeDialogHandler,
+    sendFriendRequest} = props
+
+  // console.log("props: ", props)
+
   const handleSendInvitation = () => {
     // send friend request to server
+    // console.log("sent")
+    sendFriendRequest({
+      mail: mail,
+    })
   };
 
   const handleCloseDialog = () => {
@@ -62,4 +70,10 @@ function AddFriendDialog({
   );
 }
 
-export default AddFriendDialog;
+const mapActionsToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch)
+  }
+}
+
+export default connect(null, mapActionsToProps)(AddFriendDialog);

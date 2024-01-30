@@ -53,6 +53,19 @@ export const register = async (data) => {
 
 
 // secure routes:
+
+export const sendFriendRequest = async (data) => {
+  try {
+    return await apiClient.post("/friend-request/request", data);
+  } catch (error) {
+    checkResponseCode(error);
+    return {
+      error: true,
+      error
+    }
+  }
+}
+
 const checkResponseCode = (exception) => {
   const responseCode = exception?.response?.status
 
