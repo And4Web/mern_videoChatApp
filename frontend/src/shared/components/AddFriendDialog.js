@@ -6,28 +6,28 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 
 import { validateMail } from "../utils/validators";
-import InputComponent from './InputComponent';
+import InputComponent from "./InputComponent";
 import CustomButton from "./CustomButton";
 import Typography from "@mui/material/Typography";
-import {connect} from 'react-redux';
-import {getActions} from '../../redux/actions/friendsActions';
+import { connect } from "react-redux";
+import { getActions } from "../../redux/actions/friendsActions";
 
 function AddFriendDialog(props) {
   const [mail, setMail] = useState("");
   const [isFormValid, setIsFormValid] = useState("");
 
-  const { isDialogOpen,
-    closeDialogHandler,
-    sendFriendRequest} = props
+  const { isDialogOpen, closeDialogHandler, sendFriendRequest } = props;
 
   // console.log("props: ", props)
 
   const handleSendInvitation = () => {
     // send friend request to server
-    // console.log("sent")
+    console.log("sent");
     sendFriendRequest({
-      mail: mail,
-    })
+      targetMail: mail,
+    }, closeDialogHandler);
+    console.log("after sending...");
+    handleCloseDialog();
   };
 
   const handleCloseDialog = () => {
@@ -59,11 +59,11 @@ function AddFriendDialog(props) {
         />
       </DialogContent>
       <DialogActions>
-        <CustomButton 
-        label="Send" 
-        onClick={handleSendInvitation}
-        additionalStyles={{margin: "1rem"}}
-        disabled={!isFormValid}
+        <CustomButton
+          label="Send"
+          onClick={handleSendInvitation}
+          additionalStyles={{ margin: "1rem" }}
+          disabled={!isFormValid}
         />
       </DialogActions>
     </Dialog>
@@ -72,8 +72,8 @@ function AddFriendDialog(props) {
 
 const mapActionsToProps = (dispatch) => {
   return {
-    ...getActions(dispatch)
-  }
-}
+    ...getActions(dispatch),
+  };
+};
 
 export default connect(null, mapActionsToProps)(AddFriendDialog);

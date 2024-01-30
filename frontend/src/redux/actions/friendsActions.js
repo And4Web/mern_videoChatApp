@@ -1,5 +1,5 @@
 import * as api from '../../shared/utils/api';
-
+import {showAlert, hideAlert} from './alertActions';
 
 export const friendsActions = {
   SET_FRIENDS: "FRIENDS.SET_FRIENDS",
@@ -15,20 +15,21 @@ export const getActions = (dispatch) => {
   }
 }
 
-const openAlertMessage = (content) => {
-  return {
-    type: "",
-    content
-  }
-}
+// const openAlertMessage = (content) => {
+//   return {
+//     type: "",
+//     content
+//   }
+// }
 
 const sendFriendRequest = (data, closeDialogHandler) => {
   return async (dispatch) => {
     const response = await api.sendFriendRequest(data);
+    console.log("sendFriendRequest response, friendsAction.js: ", response)
     if(response.error){
-      dispatch(openAlertMessage(response.exception?.response?.data?.message))
+      dispatch(showAlert(response.exception?.response?.data?.message))
     }else{
-      dispatch(openAlertMessage("Invitation sent"))
+      dispatch(showAlert("Invitation sent"))
       closeDialogHandler();
     }
   }

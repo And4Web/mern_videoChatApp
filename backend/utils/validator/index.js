@@ -14,8 +14,12 @@ const loginSchema = Joi.object({
   password: Joi.string().min(8).required()
 });
 
+const postFriendRequestSchema = Joi.object({
+  targetMail: Joi.string().email().required(),
+})
 
 module.exports = {
   registerValidator: joiValidator(registerSchema),
-  loginValidator: joiValidator(loginSchema)
+  loginValidator: joiValidator(loginSchema),
+  friendRequestValidator: joiValidator(postFriendRequestSchema)
 };

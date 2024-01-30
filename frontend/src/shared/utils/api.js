@@ -11,13 +11,14 @@ const apiClient = axios.create({
 
 // Axios interceptors: this logic will execute before every request to the server:
 apiClient.interceptors.request.use((config)=>{
-  const userDetails = localStorage.getItem("user");
+  // const userDetails = localStorage.getItem("user");
+  const tokenLS = localStorage.getItem("token");
 
-  if(userDetails){
-    const token = JSON.parse(userDetails).token;
+  if(tokenLS){
+    // const token = JSON.parse(userDetails).token;
+    const token = JSON.parse(tokenLS);
     config.headers.Authorization = `Bearer ${token}`;
   }
-
   return config;
 }, (error)=>{
   return Promise.reject(error)
@@ -69,7 +70,7 @@ export const sendFriendRequest = async (data) => {
 const checkResponseCode = (exception) => {
   const responseCode = exception?.response?.status
 
-  if(responseCode){
-    (responseCode === 401 || responseCode === 403 ) && logout();
-  }
+  // if(responseCode){
+  //   (responseCode === 401 || responseCode === 403 ) && logout();
+  // }
 }

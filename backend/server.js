@@ -16,9 +16,11 @@ app.use(cors());
 
 // import Routes
 const authRoutes = require('./routers/authRoutes');
+const friendRequestRoutes = require('./routers/friendRequestRoutes');
 
 // implement Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/friend-request', friendRequestRoutes);
 
 app.get('/', (req, res)=>{
   return res.status(200).json({"message": "Discord Video chat app."})

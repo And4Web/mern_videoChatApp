@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
   let token = req.body.token || req.query.token || req.headers["authorization"];
+
   if (!token) {
     return res
       .status(403)
@@ -9,7 +10,11 @@ const verifyToken = (req, res, next) => {
   }
   try {
     token = token.replace(/^Bearer\s+/, "");
+
+    console.log("token from frontend: ", token)
+    
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    // console.log("decoded token: ", decodedToken)
     req.user = decodedToken;
   } catch (error) {
     return res
