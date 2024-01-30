@@ -11,7 +11,7 @@ const verifyToken = (req, res, next) => {
   try {
     token = token.replace(/^Bearer\s+/, "");
 
-    console.log("token from frontend: ", token)
+    // console.log("token from frontend: ", token)
     
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
     // console.log("decoded token: ", decodedToken)

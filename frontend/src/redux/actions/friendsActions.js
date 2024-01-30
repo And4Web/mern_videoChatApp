@@ -27,7 +27,7 @@ const sendFriendRequest = (data, closeDialogHandler) => {
     const response = await api.sendFriendRequest(data);
     console.log("sendFriendRequest response, friendsAction.js: ", response)
     if(response.error){
-      dispatch(showAlert(response.exception?.response?.data?.message))
+      dispatch(showAlert(response.error?.response?.data?.message))
     }else{
       dispatch(showAlert("Invitation sent"))
       closeDialogHandler();
