@@ -6,7 +6,8 @@ const { friendRequestValidator } = require("../utils/validator");
 exports.postFriendRequest = async (req, res) => {
   const {targetMail} = req.body;
   const senderMail = req.user.email;
-  // console.log("sender, receiver: ", {senderMail, targetMail});
+  const {_id: senderId} = req.user;
+  // console.log("sender, receiver: ", {senderMail, senderId}, req.user);
   
   // input validation:
   const { error, value } = friendRequestValidator(req.body);
@@ -35,9 +36,31 @@ exports.postFriendRequest = async (req, res) => {
   }
 
   // if request already sent
-  
+  const requestAlreadyReceived = await FriendRequest.findOne({
+    senderId: senderId,
+    receiverId: targetUser._id
+  })
+
+  if(requestAlreadyReceived){
+    return res.status(409).json({success: false, message: "Request has already been sent to this user."})
+  }
+
+  // if the targetUser is already in our friends list
+  const usersAlreadyFriends = targetUser.friends.find(friendId=>{
+    friendId.toString() === senderId.toString();
+  })
+  if(usersAlreadyFriends){
+    return res.status(409).json({success: false, message: "This User is already added. Please check your friend's list."})
+  }
+
+  // Create new Request and save in database- FriendRequests collection:
+
+  const newRequest = await FriendRequest.create({
+    senderId: senderId,
+    receiverId: targetUser._id
+  })
 
   // response if everything is correct
-    return res.status(200).json({ message: "Friend request sent", success: true, targetMail: req.body.targetMail, sender: req.user.email });
+    return res.status(201).json({ message: "Friend request sent", success: true, targetMail, senderMail });
   
 };
