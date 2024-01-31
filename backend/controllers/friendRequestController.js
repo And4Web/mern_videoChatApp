@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const FriendRequest = require("../models/friendRequest");
+const updateFriendsPendingRequests = require('../socketHandlers/updates/friends');
 
 const { friendRequestValidator } = require("../utils/validator");
 
@@ -59,6 +60,12 @@ exports.postFriendRequest = async (req, res) => {
     senderId: senderId,
     receiverId: targetUser._id
   })
+
+  // If request has been successfully created we would like to update friend list
+
+  // send pending request update to specific user
+
+  updateFriendsPendingRequests(targetUser._id.toString())
 
   // response if everything is correct
     return res.status(201).json({ message: "Friend request sent", success: true, targetMail, senderMail });
