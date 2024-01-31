@@ -22,7 +22,7 @@ export const connectWithSocketServer = (userDetails) => {
   socket.on("friend-requests", (data)=>{
     const {pendingFriendsRequests} = data;
 
-    console.log("friend request socketConnection.js: ", data, pendingFriendsRequests);
+    console.log("friend request came at socketConnection.js: ", data, pendingFriendsRequests);
     
     store.dispatch(setPendingFriendRequests(pendingFriendsRequests))
   })

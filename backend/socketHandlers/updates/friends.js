@@ -16,9 +16,11 @@ const updateFriendsPendingRequests = async (targetId) => {
     
     // emit friend-requests event to all active users who received requests.
     receiverList.forEach((receiverSocketId)=>{
-      id.to(receiverSocketId).emit("friend-requests", {
+      io.to(receiverSocketId).emit("friend-requests", {
         pendingFriendsRequests: pendingRequests? pendingRequests: []
       })
+
+      // console.log(receiverSocketId)
     })
 
   } catch (error) {

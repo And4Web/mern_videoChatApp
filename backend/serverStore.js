@@ -24,11 +24,13 @@ const removeConnectedUser = (socketId) => {
 const getOnlineUsers = (targetId) => {
   const activeUsers = [];
 
-  connectedUsers.forEach((socketId, value)=>{
+  connectedUsers.forEach((value, socketId)=>{
     if(value.userId === targetId){
       activeUsers.push(socketId)
     }
   })
+
+  return activeUsers
 }
 
 module.exports = {
