@@ -1,6 +1,7 @@
 import React from 'react'
 import {styled} from '@mui/system';
 import PendingFriendsRequestsItem from './PendingFriendsRequestsItem';
+import {connect} from 'react-redux';
 
 const MainContainer = styled("div")({
   height: "25%",
@@ -11,33 +12,35 @@ const MainContainer = styled("div")({
   overflow: "auto"
 });
 
-const dummyInvitations = [
-  {
-    id: "1",
-    senderId: {
-      username: "Girdhar",
-      mail: "girdhar@gmail.com"
-    }
-  },
-  {
-    id: "2",
-    senderId: {
-      username: "Sakshi",
-      mail: "sakshi@gmail.com"
-    }
-  },
-]
+// const dummyInvitations = [
+//   {
+//     id: "1",
+//     senderId: {
+//       username: "Girdhar",
+//       mail: "girdhar@gmail.com"
+//     }
+//   },
+//   {
+//     id: "2",
+//     senderId: {
+//       username: "Sakshi",
+//       mail: "sakshi@gmail.com"
+//     }
+//   },
+// ]
 
-function PendingFriendsRequests() {
+
+
+function PendingFriendsRequests({pendingFriendsRequests}) {
   return (
     <MainContainer>
-      {dummyInvitations.map(i=>(
+      {pendingFriendsRequests.map(i=>(
         <>
           <PendingFriendsRequestsItem
-            key={i.id}
-            id={i.id}
+            key={i._id}
+            id={i._id}
             username={i.senderId.username}
-            mail={i.senderId.mail}
+            mail={i.senderId.email}
           />
         </>
       ))}
@@ -45,4 +48,10 @@ function PendingFriendsRequests() {
   )
 }
 
-export default PendingFriendsRequests
+const mapStateToProps = ({friends}) => {
+  return {
+    ...friends
+  }
+}
+
+export default connect(mapStateToProps)(PendingFriendsRequests)

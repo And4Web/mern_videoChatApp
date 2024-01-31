@@ -6,7 +6,7 @@ const updateFriendsPendingRequests = async (targetId) => {
   try {
     const pendingRequests = await FriendRequest.find({
       receiverId: targetId
-    }).populate("senderId", "_id, username, email");
+    }).populate("senderId", "_id email username");
 
     // find if user of specified targetId has active connections(is online?)!
     const receiverList = serverStore.getOnlineUsers(targetId);
