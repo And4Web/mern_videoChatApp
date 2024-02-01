@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import {setPendingFriendRequests, setFriends} from '../redux/actions/friendsActions';
+import {setPendingFriendRequests, setFriends, setOnlineUsers} from '../redux/actions/friendsActions';
 import store from '../redux/store';
 
 let socket = null;
@@ -33,7 +33,8 @@ export const connectWithSocketServer = (userDetails) => {
   })
 
   socket.on("online-users-update", (data)=>{
-    console.log("online users update came")
+    const {onlineUsers} = data;
+    store.dispatch(setOnlineUsers(onlineUsers));
   })
 }
 

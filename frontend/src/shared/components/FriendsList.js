@@ -26,11 +26,21 @@ const MainContainer = styled("div")({
 //   },
 // ]
 
-function FriendsList({friends}) {
+const checkUserOnline = (friends=[], onlineUsers=[]) => {
+  friends.forEach(f=>{
+    const isOnline = onlineUsers.find(u => u.userId === f.id);
+    f.isOnline = isOnline ? true : false;
+  })
+
+  return friends;
+}
+
+function FriendsList({friends, onlineUsers}) {
+  console.log("friendsList.js:  ", onlineUsers)
   return (
     <MainContainer>
       {
-        friends.map(f=>(
+        checkUserOnline(friends, onlineUsers).map(f=>(
           <div >
           <FriendsListItem
             username={f.username}

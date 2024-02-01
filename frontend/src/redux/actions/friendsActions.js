@@ -46,6 +46,13 @@ export const setFriends = (friends) => {
   }
 }
 
+export const setOnlineUsers = (onlineUsers) => {
+  return {
+    type: friendsActions.SET_ONLINE_USERS,
+    onlineUsers
+  }
+}
+
 export const setPendingFriendRequests = (pendingFriendsRequests) => {
   return {
     type: friendsActions.SET_PENDING_FRIEND_REQUESTS,

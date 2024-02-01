@@ -15,10 +15,10 @@ const addNewConnectedUser = ({socketId, userId}) => {
 }
 
 const removeConnectedUser = (socketId) => {
-  // if(connectedUsers.has(socketId)){
+  if(connectedUsers.has(socketId)){
     connectedUsers.delete(socketId);
     // console.log("New Connected Users >>> ", connectedUsers)
-  // }
+  }
 }
 
 const getOnlineUsers = (targetId) => {

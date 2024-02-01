@@ -66,5 +66,6 @@ const updateFriends = async (userId) => {
 
 module.exports = {
   updateFriendsPendingRequests,
-  updateFriends
+  updateFriends,
+  
 }
