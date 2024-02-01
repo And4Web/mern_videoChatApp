@@ -71,3 +71,38 @@ exports.postFriendRequest = async (req, res) => {
     return res.status(201).json({ message: "Friend request sent", success: true, targetMail, senderMail });
   
 };
+
+
+
+exports.acceptFriendRequest = async (req, res) => {
+  try {
+    const {id} = req.body;
+    // console.log("accepted", id)
+
+    return res.status(200).json({success: true, message: "request accepted"})
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({success: false, message: error.message})
+  }
+}
+exports.rejectFriendRequest = async (req, res) => {
+  try {
+    const {id} = req.body;
+    const {_id: userId} = req.user;
+    // console.log(id, userId)
+
+    // find requset in the collection by id
+    const requestExists = await FriendRequest.exists({_id: id});
+    // if request exists in the collecetion then delete it
+    if(requestExists){
+      await FriendRequest.findByIdAndDelete(id);
+    }
+    // after deleting update the collection with pending requests
+    updateFriendsPendingRequests(userId);
+    
+    return res.status(200).json({success: true, message: "Request rejected"})
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({success: false, message: error.message})
+  }
+}
