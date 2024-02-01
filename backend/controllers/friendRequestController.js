@@ -24,7 +24,7 @@ exports.postFriendRequest = async (req, res) => {
       .json({ message: returnError, success: false});
   } 
 
-  // if target user and sender is same
+  // if target user and sender are same
   if(targetMail.toLowerCase() === senderMail.toLowerCase()){
     // console.log("equal input and output")
     return res.status(409).json({success: false, message: "Cant send Request to yourself. Try different Email."})
@@ -37,13 +37,22 @@ exports.postFriendRequest = async (req, res) => {
   }
 
   // if request already sent
-  const requestAlreadyReceived = await FriendRequest.findOne({
+  const requestAlreadySent = await FriendRequest.findOne({
     senderId: senderId,
     receiverId: targetUser._id
   })
 
-  if(requestAlreadyReceived){
+  if(requestAlreadySent){
     return res.status(409).json({success: false, message: "Request has already been sent to this user."})
+  }
+
+  // if request already received from the target
+  const requestAlreadyReceived = await FriendRequest.findOne({
+    senderId: targetUser._id,
+    receiverId: senderId
+  })
+  if(requestAlreadyReceived){
+    return res.status(409).json({success: false, message: "You already received request from this user."})
   }
 
   // if the targetUser is already in our friends list
@@ -77,9 +86,38 @@ exports.postFriendRequest = async (req, res) => {
 exports.acceptFriendRequest = async (req, res) => {
   try {
     const {id} = req.body;
+    const {_id: userId} = req.user;
     // console.log("accepted", id)
 
-    return res.status(200).json({success: true, message: "request accepted"})
+    const request = await FriendRequest.findById({_id: id});
+
+    if(!request){
+      return res.status(401).json({success: false, message: "Error occurred, try again later."})
+    }
+
+    const {senderId, receiverId} = request;
+
+    // add friends to both users
+    const senderUser = await User.findById(senderId);
+    senderUser.friends = [...senderUser.friends, receiverId];
+
+    const receiverUser = await User.findById(receiverId);
+    receiverUser.friends = [...receiverUser.friends, senderId];
+
+    await senderUser.save();
+    await receiverUser.save();
+
+    // delete request
+    await FriendRequest.findByIdAndDelete(id);
+
+    // update friends list for both users
+
+
+    // after accepting update the collection with pending requests
+    updateFriendsPendingRequests(receiverId.toString());
+    
+
+    return res.status(200).json({success: true, message: "request accepted and new friend added to your list"})
   } catch (error) {
     console.log(error)
     return res.status(500).json({success: false, message: error.message})
