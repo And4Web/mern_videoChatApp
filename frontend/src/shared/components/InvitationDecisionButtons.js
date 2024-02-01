@@ -29,7 +29,7 @@ function InvitationDecisionButtons({
           color: "white",
         }}
         disabled={disabled}
-        onClick={acceptInvitationHandler}
+        onClick={rejectInvitationHandler}
       >
         <ClearIcon/>
       </IconButton>

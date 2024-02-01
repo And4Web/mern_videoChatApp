@@ -3,6 +3,10 @@ import {Tooltip, Typography, Box }from '@mui/material'
 import Avatar from './Avatar';
 import InvitationDecisionButtons from './InvitationDecisionButtons';
 
+import {connect} from 'react-redux';
+import {getActions} from '../../redux/actions/friendsActions';
+
+
 function PendingFriendsRequestsItem({
   id, username, mail,
   acceptFriendInvitation = () => {},
@@ -48,4 +52,10 @@ function PendingFriendsRequestsItem({
   )
 }
 
-export default PendingFriendsRequestsItem
+const mapActionsToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch)
+  }
+}
+
+export default connect(null, mapActionsToProps)(PendingFriendsRequestsItem)

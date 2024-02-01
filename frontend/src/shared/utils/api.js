@@ -74,3 +74,32 @@ const checkResponseCode = (exception) => {
   //   (responseCode === 401 || responseCode === 403 ) && logout();
   // }
 }
+
+// Friend request actions:
+export const acceptFriendInvitation = async (data) => {
+  try {
+    const response = await apiClient.post("/friend-request/accept", data);
+    return response;
+  } catch (error) {
+    console.log("friend request accept error api.js: ", error)
+    checkResponseCode(error)
+    return {
+      error: true,
+      error
+    }
+  }
+}
+
+export const rejectFriendInvitation = async (data) => {
+  try {
+    const response = await apiClient.post("/friend-request/reject", data);
+    return response;
+  } catch (error) {
+    console.log("friend request reject error api.js: ", error)
+    checkResponseCode(error)
+    return {
+      error: true,
+      error
+    }
+  }
+}
