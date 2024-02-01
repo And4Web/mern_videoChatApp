@@ -31,5 +31,9 @@ export const connectWithSocketServer = (userDetails) => {
 
     store.dispatch(setFriends(friends));
   })
+
+  socket.on("online-users-update", (data)=>{
+    console.log("online users update came")
+  })
 }
 

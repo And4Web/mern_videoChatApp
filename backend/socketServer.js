@@ -18,15 +18,26 @@ const registerSocketServer = (server) => {
     authSocket(socket, next)
   })
 
+  const emitOnlineUsersUpdate = () =>{ 
+    const onlineUsers = serverStore.getOnlineUsersUpdate();
+
+    io.emit("online-users-update", {onlineUsers});
+  }
+
   io.on("connection", (socket)=>{
     // console.log("new Socket >>>>> ", socket.id)
     newConnectionHandler(socket, io)
+    emitOnlineUsersUpdate();
 
     // if a user gets disconnected - bad internet or browser turned down
     socket.on("disconnect", (socket)=>{
       disconnectHandler(socket)
     })
   })
+
+  setInterval(()=>{
+    emitOnlineUsersUpdate();
+  }, [1000*5])
 }
 
 module.exports = registerSocketServer
