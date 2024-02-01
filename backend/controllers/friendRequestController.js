@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const FriendRequest = require("../models/friendRequest");
-const updateFriendsPendingRequests = require('../socketHandlers/updates/friends');
+const friendsUpdate = require('../socketHandlers/updates/friends');
 
 const { friendRequestValidator } = require("../utils/validator");
 
@@ -56,9 +56,11 @@ exports.postFriendRequest = async (req, res) => {
   }
 
   // if the targetUser is already in our friends list
-  const usersAlreadyFriends = targetUser.friends.find(friendId=>{
-    friendId.toString() === senderId.toString();
-  })
+  const usersAlreadyFriends = targetUser.friends.find(friend=>friend
+  )
+// .toString() === senderId.toString();
+  // console.log(usersAlreadyFriends)
+
   if(usersAlreadyFriends){
     return res.status(409).json({success: false, message: "This User is already added. Please check your friend's list."})
   }
@@ -74,13 +76,12 @@ exports.postFriendRequest = async (req, res) => {
 
   // send pending request update to specific user
 
-  updateFriendsPendingRequests(targetUser._id.toString())
+  friendsUpdate.updateFriendsPendingRequests(targetUser._id.toString())
 
   // response if everything is correct
     return res.status(201).json({ message: "Friend request sent", success: true, targetMail, senderMail });
   
 };
-
 
 
 exports.acceptFriendRequest = async (req, res) => {
@@ -111,10 +112,11 @@ exports.acceptFriendRequest = async (req, res) => {
     await FriendRequest.findByIdAndDelete(id);
 
     // update friends list for both users
-
+    friendsUpdate.updateFriends(senderId.toString())
+    friendsUpdate.updateFriends(receiverId.toString())
 
     // after accepting update the collection with pending requests
-    updateFriendsPendingRequests(receiverId.toString());
+    friendsUpdate.updateFriendsPendingRequests(receiverId.toString());
     
 
     return res.status(200).json({success: true, message: "request accepted and new friend added to your list"})
@@ -136,7 +138,7 @@ exports.rejectFriendRequest = async (req, res) => {
       await FriendRequest.findByIdAndDelete(id);
     }
     // after deleting update the collection with pending requests
-    updateFriendsPendingRequests(userId);
+    friendsUpdate.updateFriendsPendingRequests(userId);
     
     return res.status(200).json({success: true, message: "Request rejected"})
   } catch (error) {

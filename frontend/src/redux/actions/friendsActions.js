@@ -39,6 +39,13 @@ const sendFriendRequest = (data, closeDialogHandler) => {
   }
 }
 
+export const setFriends = (friends) => {
+  return {
+    type: friendsActions.SET_FRIENDS,
+    friends
+  }
+}
+
 export const setPendingFriendRequests = (pendingFriendsRequests) => {
   return {
     type: friendsActions.SET_PENDING_FRIEND_REQUESTS,
