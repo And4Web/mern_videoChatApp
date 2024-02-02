@@ -48,7 +48,7 @@ function Message({content, sameAuthor, username, date, sameDay }) {
       </AvatarContainer>
 
       <MessagesContainer>
-        <Typography style={{fontSize: "1rem", color: "white", fontWeight: "bold"}}>{username}{" "}<span style={{fontSize: ".75rem", color: "#72767d"}}>{date}</span></Typography>
+        <Typography style={{fontSize: "1rem", color: "white", fontWeight: "bold"}}><span style={{textDecoration: "underline", marginRight: ".5rem"}}>{username}{" "}</span><span style={{fontSize: ".75rem", color: "#72767d"}}>{date}</span></Typography>
         <MessageContent>{content}</MessageContent>
       </MessagesContainer>
     </MainContainer>

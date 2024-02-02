@@ -7,6 +7,7 @@ import NewMessageInput from './NewMessageInput'
 
 const Wrapper = styled("div")({
   flexGrow: 1,
+  padding: "1rem"
 })
 
 function MessangerContent({chosenChatDetails, messages}) {
