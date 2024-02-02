@@ -25,13 +25,17 @@ const registerSocketServer = (server) => {
   }
 
   io.on("connection", (socket)=>{
-    // console.log("new Socket >>>>> ", socket.id)
+    console.log("new Socket >>>>> ", socket.id)
+    
+    const newSocketId = socket.id;
+
     newConnectionHandler(socket, io)
     emitOnlineUsersUpdate();
 
     // if a user gets disconnected - bad internet or browser turned down
-    socket.on("disconnect", (socket)=>{
-      disconnectHandler(socket)
+    socket.on("disconnect", ()=>{
+      console.log("disconnect event emit.", newSocketId)
+      disconnectHandler(newSocketId)
     })
   })
 

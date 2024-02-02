@@ -1,7 +1,7 @@
 const {removeConnectedUser} = require('../serverStore');
 
-const disconnectHandler = async (socket) => {
- await removeConnectedUser(socket.id)
+const disconnectHandler = async (socketId) => {
+ await removeConnectedUser(socketId)
 }
 
 module.exports = disconnectHandler
