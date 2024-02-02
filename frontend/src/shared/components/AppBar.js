@@ -1,13 +1,13 @@
 import React from 'react'
 import { styled } from '@mui/system';
 import DropdownMenu from './DropdownMenu'
+import ChosenOptionLabel from './ChosenOptionLabel'
 
 const MainContainer = styled("div")({
   // width: "calc(100% - 18.3rem)",
   width: "58.8%",
   height: "3rem",
   display: "flex",
-  flexDirection: "column", 
   justifyContent: "space-between", 
   alignItems: "center",
   backgroundColor: "#36393F",
@@ -23,6 +23,7 @@ const MainContainer = styled("div")({
 function AppBar() {
   return (
     <MainContainer>
+      <ChosenOptionLabel/>
       <DropdownMenu/>
     </MainContainer>
   )
