@@ -1,5 +1,9 @@
 import React from 'react'
 import { styled } from '@mui/system';
+import {connect} from 'react-redux';
+
+import WelcomMessage from './WelcomMessage';
+import MessangerContent from './MessangerContent';
 
 const MainContainer = styled("div")({
   width: "90%",
@@ -13,10 +17,25 @@ const MainContainer = styled("div")({
 });
 
 
-function Messanger() {
+function Messanger({chosenChatDetails, messages}) {
   return (
-    <MainContainer>Messanger</MainContainer>
+    <MainContainer>
+      {
+        !chosenChatDetails ? (
+          <WelcomMessage/>
+        ) : (
+          <MessangerContent chosenChatDetails={chosenChatDetails} messages={messages}/>
+        )
+      }
+    </MainContainer>
   )
 }
 
-export default Messanger
+const mapStateToProps = (state) => {
+  return {
+    chosenChatDetails: state.chat?.chosenChatDetails,
+    messages: state.chat?.messages
+  }
+}
+
+export default connect(mapStateToProps)(Messanger)
