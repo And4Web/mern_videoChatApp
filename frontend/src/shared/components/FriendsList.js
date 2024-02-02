@@ -36,7 +36,7 @@ const checkUserOnline = (friends=[], onlineUsers=[]) => {
 }
 
 function FriendsList({friends, onlineUsers}) {
-  console.log("friendsList.js:  ", onlineUsers)
+  // console.log("friendsList.js:  ", onlineUsers)
   return (
     <MainContainer>
       {

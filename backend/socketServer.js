@@ -2,6 +2,7 @@ const socketIo = require('socket.io');
 const authSocket = require('./middleware/authSocket');
 const newConnectionHandler = require("./socketHandlers/newConnectionHandler");
 const disconnectHandler = require("./socketHandlers/disconnectHandler");
+const directMessageHandler = require('./socketHandlers/directMessageHandler');
 const serverStore = require('./serverStore');
 
 const registerSocketServer = (server) => {
@@ -31,6 +32,13 @@ const registerSocketServer = (server) => {
 
     newConnectionHandler(socket, io)
     emitOnlineUsersUpdate();
+
+    // listen to a direct message from client side
+    socket.on("direct-message", (data)=>{
+      console.log(`new message from ${socket.user.username}: ${data.content}`)
+
+      directMessageHandler(socket, data);
+    })
 
     // if a user gets disconnected - bad internet or browser turned down
     socket.on("disconnect", ()=>{
