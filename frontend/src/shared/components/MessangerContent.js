@@ -1,18 +1,13 @@
 import React, {useEffect} from 'react'
 import { styled } from '@mui/system';
-import {Typography} from '@mui/material';
+// import {Typography} from '@mui/material';
 
 import Messages from './Messages'
 import NewMessageInput from './NewMessageInput'
 
 const Wrapper = styled("div")({
   flexGrow: 1,
-  // height: "100%",
-  // display: "flex",
-  // alignItems: "center",
-  // justifyContent: "center"
 })
-
 
 function MessangerContent({chosenChatDetails, messages}) {
 
