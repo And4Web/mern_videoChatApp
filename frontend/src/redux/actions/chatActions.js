@@ -11,7 +11,10 @@ export const chatActions = {
 
 export const getActions = (dispatch) => {
   return {
-    setChosenChatDetails: (details, chatType) => dispatch(setChosenChatDetails(details, chatType))
+    setChosenChatDetails: (details, chatType) => dispatch(setChosenChatDetails(details, chatType)),
+    setMessages: (messages) => {
+      dispatch(setMessages(messages))
+     }
   }
 }
 

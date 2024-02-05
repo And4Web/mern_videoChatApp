@@ -27,7 +27,7 @@ export const connectWithSocketServer = (userDetails) => {
   socket.on("friends-list", (data)=>{
     const {friends} = data;
 
-    console.log("friends-list came from server: ", data)
+    // console.log("friends-list came from server: ", data)
 
     store.dispatch(setFriends(friends));
   })
@@ -36,10 +36,19 @@ export const connectWithSocketServer = (userDetails) => {
     const {onlineUsers} = data;
     store.dispatch(setOnlineUsers(onlineUsers));
   })
+
+  socket.on('direct-chat-history', (data)=>{
+    console.log('direct-chat-history from server > > >', data)
+  })
+  
 }
 
-
 export const sendDirectMessage = (data) => {
-  console.log(data);
+  // console.log(data);
   socket.emit("direct-message", data)
+}
+
+export const sendDirectChatHistory = (data) => {
+  console.log("sendDirectChatHistory >>> ", data);
+  socket.emit("direct-chat-history", data)
 }

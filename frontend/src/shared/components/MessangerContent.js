@@ -4,6 +4,7 @@ import { styled } from '@mui/system';
 
 import Messages from './Messages'
 import NewMessageInput from './NewMessageInput'
+import {sendDirectChatHistory} from '../../realtimeComm/socketConnection'
 
 const Wrapper = styled("div")({
   flexGrow: 1,
@@ -13,8 +14,11 @@ const Wrapper = styled("div")({
 function MessangerContent({chosenChatDetails, messages}) {
 
   useEffect(()=>{
-    // TODO
     // fetching chat history from specific userId
+    sendDirectChatHistory({
+      receiverUserId: chosenChatDetails.id,
+      messages
+    })
   }, [chosenChatDetails, messages])
   return (
     <Wrapper>

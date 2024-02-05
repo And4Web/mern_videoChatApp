@@ -1,7 +1,8 @@
 const Conversation = require('../../models/conversation');
+const Message = require('../../models/message');
 const serverStore = require('../../serverStore');
 
-const updateChatHistory = async (conversationId, toSpecifiedSocketId = null) => {
+const updateChatHistory = async (conversationId, toSpecifiedSocketId) => {
   const conversation = await Conversation.findById(conversationId).populate({
     path: "messages", 
     model: "Message",
@@ -12,10 +13,13 @@ const updateChatHistory = async (conversationId, toSpecifiedSocketId = null) => 
     }
   });
 
+  console.log("chat.js updateChatHistory: ", toSpecifiedSocketId, conversationId)
+  console.log("got toSpecifiedSocketId")
+
   if(conversation){
     const io = serverStore.getSocketServerInstance();  
     
-    if(toSpecifiedSocketId){
+    if(toSpecifiedSocketId){      
       // initial update of chat history
       return io.to(toSpecifiedSocketId).emit("direct-chat-history",{
         messages: conversation.messages,
@@ -27,7 +31,7 @@ const updateChatHistory = async (conversationId, toSpecifiedSocketId = null) => 
 
     // if yes emit to them update of messages
 
-    converstaion.participants.forEach(userId=>{
+    conversation.participants.forEach(userId=>{
       const activeConnections = serverStore.getOnlineUsers(userId.toString());
 
       activeConnections.forEach((socketId)=>{
@@ -40,4 +44,6 @@ const updateChatHistory = async (conversationId, toSpecifiedSocketId = null) => 
   }
 }
 
-module.exports = updateChatHistory;
+module.exports = {
+  updateChatHistory,
+}
