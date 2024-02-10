@@ -4,22 +4,22 @@ import { styled } from '@mui/system';
 
 import Messages from './Messages'
 import NewMessageInput from './NewMessageInput'
-import {sendDirectChatHistory} from '../../realtimeComm/socketConnection'
+import {getDirectChatHistory} from '../../realtimeComm/socketConnection'
 
 const Wrapper = styled("div")({
   flexGrow: 1,
   padding: "1rem"
 })
 
-function MessangerContent({chosenChatDetails, messages}) {
+function MessangerContent({chosenChatDetails}) {
 
   useEffect(()=>{
     // fetching chat history from specific userId
-    sendDirectChatHistory({
+    getDirectChatHistory({
       receiverUserId: chosenChatDetails.id,
-      messages
+      // messages
     })
-  }, [chosenChatDetails, messages])
+  }, [chosenChatDetails])
   return (
     <Wrapper>
       <Messages/>

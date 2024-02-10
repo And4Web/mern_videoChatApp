@@ -2,7 +2,7 @@ const Conversation = require('../../models/conversation');
 const Message = require('../../models/message');
 const serverStore = require('../../serverStore');
 
-const updateChatHistory = async (conversationId, toSpecifiedSocketId) => {
+const updateChatHistory = async (conversationId, toSpecifiedSocketId = null) => {
   const conversation = await Conversation.findById(conversationId).populate({
     path: "messages", 
     model: "Message",
@@ -13,8 +13,8 @@ const updateChatHistory = async (conversationId, toSpecifiedSocketId) => {
     }
   });
 
-  console.log("chat.js updateChatHistory: ", toSpecifiedSocketId, conversationId)
-  console.log("got toSpecifiedSocketId")
+  // console.log("chat.js updateChatHistory: ", toSpecifiedSocketId, conversationId)
+  // console.log("got toSpecifiedSocketId: ", toSpecifiedSocketId)
 
   if(conversation){
     const io = serverStore.getSocketServerInstance();  
@@ -31,7 +31,9 @@ const updateChatHistory = async (conversationId, toSpecifiedSocketId) => {
 
     // if yes emit to them update of messages
 
+
     conversation.participants.forEach(userId=>{
+      
       const activeConnections = serverStore.getOnlineUsers(userId.toString());
 
       activeConnections.forEach((socketId)=>{

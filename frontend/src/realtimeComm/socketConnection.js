@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import {setPendingFriendRequests, setFriends, setOnlineUsers} from '../redux/actions/friendsActions';
 import store from '../redux/store';
+import {updateDirectChatHistoryIfActive} from '../shared/utils/chat';
 
 let socket = null;
 
@@ -37,18 +38,24 @@ export const connectWithSocketServer = (userDetails) => {
     store.dispatch(setOnlineUsers(onlineUsers));
   })
 
+  // socket.on('direct-message', (data)=>{
+  //   console.log('direct-message event from server > > >', data)
+  // })
+
   socket.on('direct-chat-history', (data)=>{
-    console.log('direct-chat-history from server > > >', data)
+    // console.log('direct-chat-history from server > > >', data)
+    updateDirectChatHistoryIfActive(data)
   })
   
 }
 
 export const sendDirectMessage = (data) => {
-  // console.log(data);
+  data.clientSocketId = socket.id;
+  // console.log("sendDirectMessage: ", data);
   socket.emit("direct-message", data)
 }
 
-export const sendDirectChatHistory = (data) => {
-  console.log("sendDirectChatHistory >>> ", data);
+export const getDirectChatHistory = (data) => {
+  console.log("getDirectChatHistory >>> ", data);
   socket.emit("direct-chat-history", data)
 }

@@ -43,11 +43,16 @@ const getOnlineUsersUpdate = () => {
   return onlineUsers;
 }
 
+const connectedUsersMap = () => {
+  return connectedUsers;
+}
+
 module.exports = {
   addNewConnectedUser,
   removeConnectedUser,
   getOnlineUsers,
   setSocketServerInstance,
   getSocketServerInstance,
-  getOnlineUsersUpdate
+  getOnlineUsersUpdate,
+  connectedUsersMap
 };
