@@ -49,8 +49,8 @@ const directMessageHandler = async (socket, data) => {
       })
 
       // perform and update to sender and receiver if is online
-      updateChatHistory(conversation._id.toString(), socket.id);
-      updateChatHistory(conversation._id.toString(), receiverSocketId)
+      updateChatHistory(newConversation._id.toString(), socket.id);
+      updateChatHistory(newConversation._id.toString(), receiverSocketId)
      
     }                                
   } catch (error) {
