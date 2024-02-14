@@ -66,19 +66,38 @@ const DUMMY_MESSAGES = [
   },
 ];
 
+const convertDateToHumanReadable = (date, format) => {
+  const map = {
+    mm: date.getMonth() + 1,
+    dd: date.getDate(),
+    yy: date.getFullYear().toString().slice(-2),
+    yyyy: date.getFullYear(),
+  };
+
+  return format.replace(/mm|dd|yy|yyyy/gi, (matched)=>map[matched])
+  
+};
+
+
 function Messages({chosenChatDetails, messages}) {
   return (
     <MainContainer>
       <MessagesHeader username={chosenChatDetails?.username}/>
-      {DUMMY_MESSAGES.map((message, index)=>{
-        const {_id, content, sameAuthor, author, date, sameDay} = message;
+      {messages.map((message, index)=>{
+        const {_id, content, author, date} = message;        
+
+        const sameAuthor = index > 0 && messages[index].author._id === messages[index - 1].author._id;
+
+        const sameDay = index > 0 && convertDateToHumanReadable(new Date(message.date), "dd/mm/yy") === convertDateToHumanReadable((new Date(messages[index - 1].date)), "dd/mm/yy")
+
+
         return (
           <Message
             key={_id}
             content={content}
             username={author.username}
             sameAuthor={sameAuthor}
-            date={date}
+            date={convertDateToHumanReadable(new Date(date), "dd/mm/yy")}
             sameDay={sameDay}
           />
         )
