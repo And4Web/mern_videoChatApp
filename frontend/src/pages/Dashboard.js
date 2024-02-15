@@ -5,7 +5,8 @@ import { styled } from '@mui/system';
 import Sidebar from '../shared/components/Sidebar';
 import FriendsSidebar from '../shared/components/FriendsSidebar';
 import AppBar from '../shared/components/AppBar';
-import Messanger from '../shared/components/Messanger'
+import Messanger from '../shared/components/Messanger';
+import Room from '../shared/components/Room'
 import { logout } from '../shared/utils/auth';
 import {getActions} from '../redux/actions/authActions';
 import {connect} from 'react-redux';
@@ -18,7 +19,7 @@ const Wrapper = styled("div")({
   display: "flex",
 });
 
-function Dashboard({setUserDetails}) {
+function Dashboard({setUserDetails, isUserInRoom}) {
   
   useEffect(()=>{
     const userDetails = localStorage.getItem("user")
@@ -37,8 +38,15 @@ function Dashboard({setUserDetails}) {
       <FriendsSidebar/>
       <Messanger/>
       <AppBar/>
+      {isUserInRoom && <Room/>}
     </Wrapper>
   )
+}
+
+const mapStateToProps = ({room}) => {
+  return {
+    ...room
+  }
 }
 
 const mapActionsToProps = (dispatch) => {
@@ -47,4 +55,4 @@ const mapActionsToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapActionsToProps)(Dashboard)
+export default connect(mapStateToProps, mapActionsToProps)(Dashboard)
