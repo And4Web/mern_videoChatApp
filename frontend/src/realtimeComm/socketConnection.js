@@ -3,6 +3,8 @@ import {setPendingFriendRequests, setFriends, setOnlineUsers} from '../redux/act
 import store from '../redux/store';
 import {updateDirectChatHistoryIfActive} from '../shared/utils/chat';
 
+import * as roomHandler from './roomHandler'
+
 let socket = null;
 
 export const connectWithSocketServer = (userDetails) => {
@@ -50,8 +52,15 @@ export const connectWithSocketServer = (userDetails) => {
   // on room create
   socket.on("room-create", (data)=>{
     console.log("socketConnection.js created room details came from server >>> ", data)
+
+    roomHandler.newRoomCreated(data);
+
   })
   
+
+  socket.on("active-rooms", data=>{
+    roomHandler.updateActiveRooms(data)
+  })
 }
 
 export const sendDirectMessage = (data) => {
