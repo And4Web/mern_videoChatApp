@@ -4,6 +4,7 @@ const newConnectionHandler = require("./socketHandlers/newConnectionHandler");
 const disconnectHandler = require("./socketHandlers/disconnectHandler");
 const directMessageHandler = require('./socketHandlers/directMessageHandler');
 const directChatHistoryHandler = require('./socketHandlers/directChatHistoryHandler');
+const createRoomHandler = require('./socketHandlers/createRoomHandler')
 const serverStore = require('./serverStore');
 
 
@@ -49,6 +50,11 @@ const registerSocketServer = (server) => {
       directChatHistoryHandler(socket, data)
 
       console.log(`direct-chat-history of ${socket.user.username} and ${data.receiverUserId}:`)
+    })
+
+    // on creating new room
+    socket.on("room-create", ()=>{
+      createRoomHandler(socket)
     })
 
     // if a user gets disconnected - bad internet or browser turned down
