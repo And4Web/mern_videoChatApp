@@ -8,3 +8,10 @@ export const roomActions = {
   SET_SCREEN_SHARE_STREAM: "ROOM.SET_SCREEN_SHARE_STREAM"
 }
 
+export const setOpenRoom = (isUserRoomCreator=false, isUserInRoom=false) => {
+  return {
+    type: roomActions.OPEN_ROOM,
+    isUserRoomCreator,
+    isUserInRoom
+  }
+}
