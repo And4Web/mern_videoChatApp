@@ -12,6 +12,7 @@ const MainContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  // overflowY: "scroll"
 })
 
 // const DUMMY_MESSAGES = [
@@ -84,31 +85,34 @@ function Messages({chosenChatDetails, messages}) {
   return (
     <MainContainer>
       <MessagesHeader username={chosenChatDetails?.username}/>
-      {messages.map((message, index)=>{
-        const {_id, content, author, date} = message;        
+      <div style={{overflowY: "scroll", width: "100%", paddingBottom: "2rem"}}>
 
-        const sameAuthor = index > 0 && messages[index].author._id === messages[index - 1].author._id;
+        {messages.map((message, index)=>{
+          const {_id, content, author, date} = message;        
 
-        const sameDay = index > 0 && convertDateToHumanReadable(new Date(message.date), "dd/mm/yy") === convertDateToHumanReadable((new Date(messages[index - 1].date)), "dd/mm/yy")
+          const sameAuthor = index > 0 && messages[index].author._id === messages[index - 1].author._id;
+
+          const sameDay = index > 0 && convertDateToHumanReadable(new Date(message.date), "dd/mm/yy") === convertDateToHumanReadable((new Date(messages[index - 1].date)), "dd/mm/yy")
 
 
-        return (
-          <div key={_id} style={{width: "98%"}}>
-            {(!sameDay || index === 0) && (
-              <DateSeparator
-                date={convertDateToHumanReadable(new Date(message.date), "dd/mm/yy")}
+          return (
+            <div key={_id} style={{width: "98%"}}>
+              {(!sameDay || index === 0) && (
+                <DateSeparator
+                  date={convertDateToHumanReadable(new Date(message.date), "dd/mm/yy")}
+                />
+              )}
+              <Message              
+                content={content}
+                username={author.username}
+                sameAuthor={sameAuthor}
+                date={convertDateToHumanReadable(new Date(date), "dd/mm/yy")}
+                sameDay={sameDay}
               />
-            )}
-            <Message              
-              content={content}
-              username={author.username}
-              sameAuthor={sameAuthor}
-              date={convertDateToHumanReadable(new Date(date), "dd/mm/yy")}
-              sameDay={sameDay}
-            />
-          </div>
-        )
-      })}
+            </div>
+          )
+        })}
+      </div>
     </MainContainer>
   )
 }
