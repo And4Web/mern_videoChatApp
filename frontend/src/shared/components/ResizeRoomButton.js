@@ -6,8 +6,8 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull'
 
 const MainContainer = styled("div")({
   position: "absolute",
-  bottom: ".7rem",
-  right: ".7rem"
+  bottom: ".2rem",
+  right: ".2rem"
 })
 
 function ResizeRoomButton({isRoomMinimized, handleRoomResize}) {
