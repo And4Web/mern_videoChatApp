@@ -1,6 +1,12 @@
 import React from 'react'
 import {styled} from '@mui/system';
 
+import ScreenShareButton from './ScreenShareButton'
+import MicButton from './MicButton'
+import CloseRoomButton from './CloseRoomButton'
+import CameraButton from './CameraButton'
+
+
 const MainContainer = styled("div")({
   height: "18%",
   width: '100%',
@@ -17,7 +23,12 @@ const MainContainer = styled("div")({
 
 function RoomButtons() {
   return (
-    <MainContainer></MainContainer>
+    <MainContainer>
+      <ScreenShareButton/>
+      <MicButton/>
+      <CloseRoomButton/>
+      <CameraButton/>
+    </MainContainer>
   )
 }
 
