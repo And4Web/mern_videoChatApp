@@ -57,7 +57,6 @@ export const connectWithSocketServer = (userDetails) => {
 
   })
   
-
   socket.on("active-rooms", data=>{
     roomHandler.updateActiveRooms(data)
   })

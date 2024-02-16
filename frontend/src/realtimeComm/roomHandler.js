@@ -1,5 +1,5 @@
 import store from '../redux/store';
-import {setOpenRoom, setRoomDetails} from '../redux/actions/roomActions'
+import {setOpenRoom, setRoomDetails, setActiveRooms} from '../redux/actions/roomActions'
 import * as socketConnection from './socketConnection'
 
 
@@ -17,4 +17,17 @@ export const updateActiveRooms = (data) => {
   const {activeRooms} = data;
   console.log("roomHandler.js Active Rooms >>> ", activeRooms)
   // store.dispatch()
+  // we want to render the active rooms only if the creator of the room is our friend
+  const friends = store.getState().friends?.friends;
+  let rooms = [];
+
+  activeRooms.forEach(room=>{
+    friends.forEach(f=>{
+      if(f.id === room.roomCreator.userId){
+        rooms.push({...room, creatorUsername: f.username});
+      }
+    })
+  })
+
+  store.dispatch(setActiveRooms(rooms))
 }
