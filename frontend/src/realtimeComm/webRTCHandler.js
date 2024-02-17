@@ -16,6 +16,7 @@ export const getLocalStreamPreview = (onlyAudio = false, callbackFunc) => {
   const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
 
   navigator.mediaDevices.getUserMedia(constraints).then(stream=>{
+    console.log("webRTCHandler.js stream >>> ", stream)
     store.dispatch(setLocalStream(stream));
     callbackFunc();
   }).catch(error=>{

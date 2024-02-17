@@ -16,8 +16,8 @@ const MainContainer = styled("div")({
 })
 
 const fullScreenRoomStyle = {
-  width: "92%",
-  height: "92vh",
+  width: "98%",
+  height: "98vh",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)"
