@@ -8,6 +8,12 @@ export const roomActions = {
   SET_SCREEN_SHARE_STREAM: "ROOM.SET_SCREEN_SHARE_STREAM"
 }
 
+export const getRoomActions = (dispatch) => {
+  return {
+    setAudioOnly: (audioOnly) => dispatch(setAudioOnly(audioOnly))
+  }
+}
+
 export const setOpenRoom = (isUserRoomCreator=false, isUserInRoom=false) => {
   return {
     type: roomActions.OPEN_ROOM,
@@ -34,5 +40,12 @@ export const setLocalStream = (localStream) => {
   return {
     type: roomActions.SET_LOCAL_STREAM,
     localStream
+  }
+}
+
+export const setAudioOnly = (audioOnly) => {
+  return {
+    type: roomActions.SET_AUDIO_ONLY,
+    audioOnly
   }
 }
