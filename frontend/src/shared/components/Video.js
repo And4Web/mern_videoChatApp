@@ -13,7 +13,7 @@ const VideoEl = styled("video")({
   height: "100%"
 })
 
-function Video({stream, isLocalStream}) {
+function Video({stream, isLocalStream, isAudioOnly}) {
   const videoRef = useRef();
 
   useEffect(()=>{
@@ -23,7 +23,7 @@ function Video({stream, isLocalStream}) {
     video.onloadedmetadata = () => {
       video.play();
     }
-  }, [stream]);
+  }, [stream, isAudioOnly]);
 
   return (
     <MainContainer>

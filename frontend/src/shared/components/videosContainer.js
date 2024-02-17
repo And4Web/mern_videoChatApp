@@ -10,10 +10,10 @@ const MainContainer = styled("div")({
   flexWrap: "wrap"
 })
 
-function VideosContainer({localStream}) {
+function VideosContainer({localStream, audioOnly}) {
   return (
     <MainContainer>
-      <Video stream={localStream} isLocalStream/>
+      <Video stream={localStream} isLocalStream isAudioOnly={audioOnly}/>
     </MainContainer>
   )
 }

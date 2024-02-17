@@ -3,7 +3,7 @@
 import store from '../redux/store';
 import {setLocalStream} from '../redux/actions/roomActions';
 
-const onlyAudioConstraints = {
+const audioOnlyConstraints = {
   audio: true,
   video: false,
 }
@@ -12,8 +12,9 @@ const defaultConstraints = {
   video: true,
 }
 
-export const getLocalStreamPreview = (onlyAudio = false, callbackFunc) => {
-  const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
+export const getLocalStreamPreview = (audioOnly, callbackFunc) => {
+  // console.log("webRTCHandler audio Only>>> ", audioOnly)
+  const constraints = audioOnly ? audioOnlyConstraints : defaultConstraints;
 
   navigator.mediaDevices.getUserMedia(constraints).then(stream=>{
     console.log("webRTCHandler.js stream >>> ", stream)
