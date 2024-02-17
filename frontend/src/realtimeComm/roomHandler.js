@@ -16,7 +16,7 @@ export const newRoomCreated = (data) => {
 export const updateActiveRooms = (data) => {
   const {activeRooms} = data;
   console.log("roomHandler.js Active Rooms >>> ", activeRooms)
-  // store.dispatch()
+  
   // we want to render the active rooms only if the creator of the room is our friend
   const friends = store.getState().friends?.friends;
   let rooms = [];
@@ -37,4 +37,13 @@ export const joinRoom = (roomId) => {
   store.dispatch(setOpenRoom(false, true));
 
   socketConnection.joinRoom({roomId});
+}
+
+export const leaveRoom = () => {
+  const roomId = store.getState().room.roomDetails.roomId;
+
+  socketConnection.leaveRoom({roomId});
+
+  store.dispatch(setRoomDetails(null));
+  store.dispatch(setOpenRoom(false, false));
 }
