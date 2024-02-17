@@ -1,11 +1,16 @@
 import store from '../redux/store';
 import {setOpenRoom, setRoomDetails, setActiveRooms} from '../redux/actions/roomActions'
 import * as socketConnection from './socketConnection'
+import * as webRTCHandler from './webRTCHandler';
 
 
 export const createNewRoom = () => {
-  store.dispatch(setOpenRoom(true, true))
-  socketConnection.createNewRoom();
+  const successCallback = () => {
+    store.dispatch(setOpenRoom(true, true))
+    socketConnection.createNewRoom();
+  }
+
+  webRTCHandler.getLocalStreamPreview(false, successCallback());
 }
 
 export const newRoomCreated = (data) => {
