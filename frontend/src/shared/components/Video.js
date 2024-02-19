@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from 'react'
-import { styled} from '@mui/system';
+import React, {useEffect, useRef} from 'react';
+import {styled} from '@mui/system';
 
 const MainContainer = styled("div")({
   height: "50%",
@@ -15,6 +15,7 @@ const VideoEl = styled("video")({
 
 function Video({stream, isLocalStream, isAudioOnly}) {
   const videoRef = useRef();
+  console.log("Video.js >>> ", stream);
 
   useEffect(()=>{
     const video = videoRef.current;
@@ -23,6 +24,8 @@ function Video({stream, isLocalStream, isAudioOnly}) {
     video.onloadedmetadata = () => {
       video.play();
     }
+    console.log("Video.js isAudioOnly >>> ", isAudioOnly)
+    
   }, [stream, isAudioOnly]);
 
   return (

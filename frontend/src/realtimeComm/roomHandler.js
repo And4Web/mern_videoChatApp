@@ -1,5 +1,5 @@
 import store from '../redux/store';
-import {setOpenRoom, setRoomDetails, setActiveRooms} from '../redux/actions/roomActions'
+import {setOpenRoom, setRoomDetails, setActiveRooms, setAudioOnly, setLocalStream} from '../redux/actions/roomActions'
 import * as socketConnection from './socketConnection'
 import * as webRTCHandler from './webRTCHandler';
 
@@ -11,6 +11,8 @@ export const createNewRoom = () => {
   }
 
   const audioOnly = store.getState().room.audioOnly;
+  setAudioOnly(audioOnly);
+  console.log("roomHandler.js audioOnly >>> ", audioOnly);
   webRTCHandler.getLocalStreamPreview(audioOnly , successCallback);
 }
 
@@ -47,12 +49,23 @@ export const joinRoom = (roomId) => {
     socketConnection.joinRoom({roomId});
   }
 
-  const audioOnly  = store.getState().room.audioOnly;
+  const audioOnly = store.getState().room.audioOnly;
+  setAudioOnly(audioOnly);
   webRTCHandler.getLocalStreamPreview(audioOnly , successCallback);  
 }
 
 export const leaveRoom = () => {
   const roomId = store.getState().room.roomDetails.roomId;
+
+  const localStream = store.getState().room.localStream;
+
+  if(localStream){
+    // every local stream comes with audio track and video track, we will stop both these track on leaving the room for the user.
+    localStream.getTracks().forEach(track=>{
+      track.stop();
+    })
+    store.dispatch(setLocalStream(null));
+  }
 
   socketConnection.leaveRoom({roomId});
 

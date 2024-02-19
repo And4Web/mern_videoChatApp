@@ -12,9 +12,10 @@ const defaultConstraints = {
   video: true,
 }
 
-export const getLocalStreamPreview = (audioOnly, callbackFunc) => {
-  // console.log("webRTCHandler audio Only>>> ", audioOnly)
+export const getLocalStreamPreview = (audioOnly=false, callbackFunc) => {
+  console.log("webRTCHandler audio Only>>> ", audioOnly)
   const constraints = audioOnly ? audioOnlyConstraints : defaultConstraints;
+  console.log("webRTCHandler constraints>>> ", constraints)
 
   navigator.mediaDevices.getUserMedia(constraints).then(stream=>{
     console.log("webRTCHandler.js stream >>> ", stream)
