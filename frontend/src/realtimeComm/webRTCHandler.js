@@ -2,7 +2,7 @@
 
 import store from '../redux/store';
 import Peer from 'simple-peer';
-import {setLocalStream} from '../redux/actions/roomActions';
+import {setLocalStream, setRemoteStreams} from '../redux/actions/roomActions';
 import * as socketConnection from './socketConnection';
 
 const getConfiguration = () => {
@@ -81,6 +81,9 @@ export const preapreNewPeerConnection = (connUserSocketId, isInitiator) => {
     // ADD NEW REMOTE STREAM TO OUR SERVER STORE:
     console.log("webRTCHandler.js remote stream came from other user, direct connection established >>> ", remoteStream);
 
+    remoteStream.connUserSocketId = connUserSocketId;
+    addNewRemoteStream(remoteStream);
+
   })
 
 }
@@ -91,6 +94,13 @@ export const handleSignalingData = (signalingData) => {
   if(peers[connUserSocketId]){
     peers[connUserSocketId].signal(signal);
   }
+}
+
+export const addNewRemoteStream = (remoteStream) => {
+  const remoteStreams = store.getState().room.remoteStreams;
+  const newRemoteStreams = [...remoteStreams, remoteStream];
+
+  store.dispatch(setRemoteStreams(newRemoteStreams))
 }
 
 

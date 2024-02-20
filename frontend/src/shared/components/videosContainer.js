@@ -7,13 +7,22 @@ const MainContainer = styled("div")({
   height: "85%",
   width: '100%',
   display: "flex",
-  flexWrap: "wrap"
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexWrap: "wrap",
+  // overflowY: "scroll",
+  
 })
 
-function VideosContainer({localStream, audioOnly}) {
+function VideosContainer({localStream, audioOnly, remoteStreams}) {
   return (
-    <MainContainer>
-      <Video stream={localStream} isLocalStream isAudioOnly={audioOnly}/>
+    <MainContainer>      
+        <Video stream={localStream} isLocalStream isAudioOnly={audioOnly}/>
+        {remoteStreams.map(stream=>{
+          return (
+            <Video key={stream.id} stream={stream}/>
+          )
+        })}    
     </MainContainer>
   )
 }

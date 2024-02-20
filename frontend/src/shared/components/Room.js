@@ -12,7 +12,8 @@ const MainContainer = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: 'center',
-  backgroundColor: "#202225"
+  backgroundColor: "#202225",
+  overflowY: "scroll"
 })
 
 const fullScreenRoomStyle = {

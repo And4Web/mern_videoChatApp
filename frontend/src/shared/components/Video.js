@@ -3,9 +3,12 @@ import {styled} from '@mui/system';
 
 const MainContainer = styled("div")({
   height: "50%",
-  width: '50%',
+  width: '40%',
+  // width: 'auto',
   backgroundColor: "black",
-  borderRadius: ".5rem"
+  borderRadius: ".5rem",
+  // border: "3px solid white",
+  margin: ".5rem .5rem",
 })
 
 const VideoEl = styled("video")({
