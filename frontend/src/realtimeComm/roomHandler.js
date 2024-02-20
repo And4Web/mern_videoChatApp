@@ -12,7 +12,7 @@ export const createNewRoom = () => {
 
   const audioOnly = store.getState().room.audioOnly;
   setAudioOnly(audioOnly);
-  console.log("roomHandler.js audioOnly >>> ", audioOnly);
+  // console.log("roomHandler.js audioOnly >>> ", audioOnly);
   webRTCHandler.getLocalStreamPreview(audioOnly , successCallback);
 }
 
@@ -23,7 +23,7 @@ export const newRoomCreated = (data) => {
 
 export const updateActiveRooms = (data) => {
   const {activeRooms} = data;
-  console.log("roomHandler.js Active Rooms >>> ", activeRooms)
+  // console.log("roomHandler.js Active Rooms >>> ", activeRooms)
   
   // we want to render the active rooms only if the creator of the room is our friend
   const friends = store.getState().friends?.friends;

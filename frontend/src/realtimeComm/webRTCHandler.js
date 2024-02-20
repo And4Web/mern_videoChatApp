@@ -71,21 +71,31 @@ export const preapreNewPeerConnection = (connUserSocketId, isInitiator) => {
       connUserSocketId,
     }
 
-    // TODO
-    // PASS SIGNALING DATA TO OTHER USERS
-    // socketConnection.signalPeerData(signalData);
+    // PASS SIGNALING DATA TO OTHER USER
+    socketConnection.signalPeerData(signalData);
+
   })
 
   peers[connUserSocketId].on("stream", (remoteStream)=>{
     // TODO
     // ADD NEW REMOTE STREAM TO OUR SERVER STORE:
+    console.log("webRTCHandler.js remote stream came from other user, direct connection established >>> ", remoteStream);
 
   })
 
 }
 
+export const handleSignalingData = (signalingData) => {
+  const {connUserSocketId, signal} = signalingData;
+
+  if(peers[connUserSocketId]){
+    peers[connUserSocketId].signal(signal);
+  }
+}
+
 
 /*
+steps:-
 -we are using Peer class from simple-peers package to create peers object.
 
 -as we know that using webRTC if we want to create a direct connection between users, then we need the information about internet connection of the users i.e. Ice Candidates and the SDP information. getConfiguration() function will give the necessary information and configurations.

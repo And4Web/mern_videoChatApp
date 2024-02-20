@@ -15,7 +15,7 @@ const VideoEl = styled("video")({
 
 function Video({stream, isLocalStream, isAudioOnly}) {
   const videoRef = useRef();
-  console.log("Video.js >>> ", stream);
+  // console.log("Video.js >>> ", stream);
 
   useEffect(()=>{
     const video = videoRef.current;
@@ -24,7 +24,7 @@ function Video({stream, isLocalStream, isAudioOnly}) {
     video.onloadedmetadata = () => {
       video.play();
     }
-    console.log("Video.js isAudioOnly >>> ", isAudioOnly)
+    // console.log("Video.js isAudioOnly >>> ", isAudioOnly)
     
   }, [stream, isAudioOnly]);
 
