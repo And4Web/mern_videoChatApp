@@ -4,6 +4,7 @@ import store from '../redux/store';
 import {updateDirectChatHistoryIfActive} from '../shared/utils/chat';
 
 import * as roomHandler from './roomHandler'
+import * as webRTCHandler from './webRTCHandler';
 
 let socket = null;
 
@@ -63,6 +64,17 @@ export const connectWithSocketServer = (userDetails) => {
 
   socket.on("conn-prepare", data => {
     console.log("socketConnection.js prepare connection >>> ", data)
+    const {connUserSocketId} = data;
+
+    webRTCHandler.preapreNewPeerConnection(connUserSocketId, false);
+
+    socket.emit("conn-init", {connUserSocketId})
+
+  })
+
+  socket.on("conn-init", (data) => {
+    const {connUserSocketId} = data;
+    webRTCHandler.preapreNewPeerConnection(connUserSocketId, true);
   })
 }
 

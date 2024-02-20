@@ -7,6 +7,7 @@ const directChatHistoryHandler = require('./socketHandlers/directChatHistoryHand
 const createRoomHandler = require('./socketHandlers/createRoomHandler')
 const roomJoinHandler = require('./socketHandlers/roomJoinHandler')
 const leaveRoomHandler = require('./socketHandlers/leaveRoomHandler');
+const roomInitializeConnectionHandler = require('./socketHandlers/roomInitializeConnectionHandler');
 const serverStore = require('./serverStore');
 
 
@@ -69,6 +70,10 @@ const registerSocketServer = (server) => {
       leaveRoomHandler(socket, data)
     })
 
+    // peer connection init
+    socket.on("conn-init", (data)=>{
+      roomInitializeConnectionHandler(socket, data)
+    })
     // if a user gets disconnected - bad internet or browser turned down
     socket.on("disconnect", ()=>{
       // console.log("disconnect event emit.", newSocketId)
