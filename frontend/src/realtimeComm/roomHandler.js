@@ -67,6 +67,8 @@ export const leaveRoom = () => {
     store.dispatch(setLocalStream(null));
   }
 
+  webRTCHandler.closeAllConnections();
+
   socketConnection.leaveRoom({roomId});
 
   store.dispatch(setRoomDetails(null));

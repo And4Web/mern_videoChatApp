@@ -103,6 +103,35 @@ export const addNewRemoteStream = (remoteStream) => {
   store.dispatch(setRemoteStreams(newRemoteStreams))
 }
 
+export const closeAllConnections = () => {
+  // on leave, close all direct connections which the user has established with other users.
+  Object.entries(peers).forEach((mappedObject)=>{
+    const connUserSocketId = mappedObject[0];
+
+    if(peers[connUserSocketId]){
+      peers[connUserSocketId].destroy();
+      delete peers[connUserSocketId];
+    }
+  })
+}
+
+export const handleParticipantLeftRoom = (data) => {
+  const {connUserSocketId} = data;
+
+  if(peers[connUserSocketId]){
+    peers[connUserSocketId].destroy();
+    delete peers[connUserSocketId];
+  }
+
+  const remoteStreams = store.getState().room.remoteStreams;
+
+  const newRemoteStreams = remoteStreams.filter(stream=>{
+    return stream.connUserSocketId !== connUserSocketId;
+  })
+
+  store.dispatch(setRemoteStreams(newRemoteStreams));
+}
+
 
 /*
 steps:-
