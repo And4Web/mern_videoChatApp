@@ -19,7 +19,7 @@ const roomReducer = (state=initialState, action)=>{
       return {
         ...state,
         isUserInRoom: action.isUserInRoom,
-        isUserRoomCreator: action.isUserRoomCreator
+        isUserRoomCreator: action.isUserRoomCreator,
       }
     case roomActions.SET_ROOM_DETAILS:
       return {

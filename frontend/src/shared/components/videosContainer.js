@@ -17,7 +17,7 @@ const MainContainer = styled("div")({
 function VideosContainer({localStream, audioOnly, remoteStreams}) {
   return (
     <MainContainer>      
-        <Video stream={localStream} isLocalStream isAudioOnly={audioOnly}/>
+        {<Video stream={localStream} isLocalStream isAudioOnly={audioOnly}/>}
         {remoteStreams.map(stream=>{
           return (
             <Video key={stream.id} stream={stream}/>

@@ -86,6 +86,12 @@ const registerSocketServer = (server) => {
       // console.log("disconnect event emit.", newSocketId)
       disconnectHandler(socket)
     })
+
+    // if participant leaves room
+    // socket.on("room-participant-left", (data)=>{
+    //   console.log("socketServer.js participant leave room >>> ", data)
+
+    // })
   })
 
   setInterval(()=>{

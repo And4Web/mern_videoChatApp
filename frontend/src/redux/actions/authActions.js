@@ -37,6 +37,7 @@ const login = (userDetails, navigate) => {
       //show error message in alert
       // dispatch(showAlert(response.exception?.message))
       dispatch(showAlert(response.exception?.response?.data?.message))
+      
     }else{
       // console.log("new response >>> ", response)
       const {userDetails, token} = response?.data;

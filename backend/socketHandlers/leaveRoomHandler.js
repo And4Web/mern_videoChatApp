@@ -10,11 +10,13 @@ const leaveRoomHandler = (socket, data) => {
 
     const updatedActiveRoom = serverStore.getActiveRoom(roomId);
 
+    console.log("updatedActiveRoom >>> ", updatedActiveRoom)
+
+    
+// socket.to(participant.socketId).emit("room-participant-left", {connUserSocketId: socket.id})
     if(updatedActiveRoom){
-      updatedActiveRoom.participants.forEach(participant=>{
-        socket.to(participant.socketId).emit("room-participant-left"), {
-          connUserSocketId: socket.id
-        }
+      updatedActiveRoom?.participants?.forEach(participant=>{        
+        socket.to(participant.socketId).emit("room-participant-left", {connUserSocketId: socket.id})
       })
     }
     roomsUpdate.updateRooms();

@@ -9,7 +9,7 @@ const getConfiguration = () => {
   const turnIceServers = null;
 
   if(turnIceServers){
-    // TODO use TURN Server credentials:
+    // TODO: use TURN Server credentials:
     console.log("TurnIceServers")
   }else{
     console.warn("Using STUN Servers only.")
@@ -101,22 +101,25 @@ export const addNewRemoteStream = (remoteStream) => {
   const newRemoteStreams = [...remoteStreams, remoteStream];
 
   store.dispatch(setRemoteStreams(newRemoteStreams))
+  // console.log("webRTCHandler.js peers >>> ", peers[])
 }
 
 export const closeAllConnections = () => {
   // on leave, close all direct connections which the user has established with other users.
   Object.entries(peers).forEach((mappedObject)=>{
     const connUserSocketId = mappedObject[0];
-
-    if(peers[connUserSocketId]){
-      peers[connUserSocketId].destroy();
-      delete peers[connUserSocketId];
-    }
+    console.log("webRTCHandler.js, closeAllConnections with >>> ", connUserSocketId);
+    // 5
+    console.log("webRTCHandler.js, all connections closed, peers destroyed >>> ");
   })
 }
 
 export const handleParticipantLeftRoom = (data) => {
+  console.log("webRTCHandler.js handleParticipantLeftRoom >>> ", data);
+  
   const {connUserSocketId} = data;
+
+  console.log("webRTCHandler.js handleParticipantLeftRoom >>> ", peers[connUserSocketId]);
 
   if(peers[connUserSocketId]){
     peers[connUserSocketId].destroy();
@@ -125,9 +128,9 @@ export const handleParticipantLeftRoom = (data) => {
 
   const remoteStreams = store.getState().room.remoteStreams;
 
-  const newRemoteStreams = remoteStreams.filter(stream=>{
-    return stream.connUserSocketId !== connUserSocketId;
-  })
+  const newRemoteStreams = remoteStreams.filter((stream)=>
+    stream.connUserSocketId !== connUserSocketId
+  )
 
   store.dispatch(setRemoteStreams(newRemoteStreams));
 }

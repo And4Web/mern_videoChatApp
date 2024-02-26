@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
 
       const token = jwt.sign({
        username, email
-      }, process.env.JWT_SECRET_KEY, {expiresIn: '2h'});
+      }, process.env.JWT_SECRET_KEY, {expiresIn: '7d'});
 
       // save the user in database after JWT authentication
       await newUser.save();
@@ -73,7 +73,7 @@ exports.login = async (req, res) => {
       if (user && (await bcrypt.compare(password, user.password))) {
         const {username, _id, email} = user;
         // send JWT token
-        const token = jwt.sign({username, _id, email}, process.env.JWT_SECRET_KEY, {expiresIn: '24h'});        
+        const token = jwt.sign({username, _id, email}, process.env.JWT_SECRET_KEY, {expiresIn: '7d'});        
 
         // login success
         return res.status(200).json({ message: "Login successfully validated", success: true, userDetails: {_id, email, username }, token });
