@@ -1,5 +1,6 @@
 import React from 'react'
 import {styled} from '@mui/system';
+import {connect} from 'react-redux';
 
 import ScreenShareButton from './ScreenShareButton'
 import MicButton from './MicButton'
@@ -21,15 +22,21 @@ const MainContainer = styled("div")({
 })
 
 
-function RoomButtons() {
+function RoomButtons({localStream}) {
   return (
     <MainContainer>
       <ScreenShareButton/>
-      <MicButton/>
+      <MicButton localStream={localStream}/>
       <CloseRoomButton/>
-      <CameraButton/>
+      <CameraButton localStream={localStream}/>
     </MainContainer>
   )
 }
 
-export default RoomButtons
+const mapStateToProps = ({room}) => {
+  return {
+    ...room
+  }
+}
+
+export default connect(mapStateToProps)(RoomButtons)
