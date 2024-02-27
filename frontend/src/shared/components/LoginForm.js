@@ -29,9 +29,11 @@ function LoginForm({
   handleLogin,
 }) {
   const navigate = useNavigate();
+
   const handleRedirect = () => {
     navigate("/register");
   };
+  
   return (
     <FormWrapper>
       <InputComponent

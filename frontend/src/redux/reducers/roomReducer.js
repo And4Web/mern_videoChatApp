@@ -9,7 +9,7 @@ const initialState = {
   localStream: null,
   remoteStreams: [],
   audioOnly: false,
-  screenSharingStrean: null,
+  screenSharingStream: null,
   isScreenSharingActive: false
 }
 
@@ -46,6 +46,12 @@ const roomReducer = (state=initialState, action)=>{
       return {
         ...state,
         remoteStreams: action.remoteStreams
+      }
+    case roomActions.SET_SCREEN_SHARE_STREAM:
+      return {
+        ...state,
+        screenSharingStream: action.screenSharingStream,
+        isScreenSharingActive: action.isScreenSharingActive
       }
     default:
       return state

@@ -31,12 +31,16 @@ const login = (userDetails, navigate) => {
   return async (dispatch) => {
     const response = await api.login(userDetails);
 
-    // console.log("authActions.js response: ", response)
+    console.log("authActions.js response: ", response)
+    
+    if(response.exception?.code === "ECONNABORTED"){
+      dispatch(showAlert("Can't connect to server at this moment. Try again later.")) 
+    }
 
     if(response.error){
       //show error message in alert
       // dispatch(showAlert(response.exception?.message))
-      dispatch(showAlert(response.exception?.response?.data?.message))
+      dispatch(showAlert(response.exception?.response?.data?.message))    
       
     }else{
       // console.log("new response >>> ", response)
