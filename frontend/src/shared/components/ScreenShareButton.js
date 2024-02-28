@@ -12,12 +12,13 @@ const constraints = {
 
 function ScreenShareButton({
   localStream,
+  screenSharingStream,
   setScreenSharingStream,
   isScreenSharingActive
 }) {
-  const [isScreenShared, setIsScreenShared] = useState(true);
-
-  const handleShareScreenToggle = async () => {
+  // const [isScreenShared, setIsScreenShared] = useState(isScreenSharingActive);
+  const handleShareScreenToggle = async () => {    
+    console.log("screen share button clicked...", isScreenSharingActive)
     if(!isScreenSharingActive){
       let stream = null;
       try {
@@ -25,23 +26,24 @@ function ScreenShareButton({
       } catch (error) {
         console.log("Error occurred when trying to share screen >>> ", error)
       }
-
+      
       if(stream){
+        console.log("ScreenShareButton.js stream >>> ", stream);
         setScreenSharingStream(stream);
         // switch outgoing tracks from localStream to screenShare stream
         webRTCHandler.switchOutgoingTracks(stream);
-      }else{
-        // switch outgoing tracks from screenShare stream to localStream
-        webRTCHandler.switchOutgoingTracks(localStream);
-        setScreenSharingStream.getTrack().forEach(t=>t.stop())
-        setScreenSharingStream(null);
       }
+    }else{
+      // switch outgoing tracks from screenShare stream to localStream - turn off screen sharing
+      webRTCHandler.switchOutgoingTracks(localStream);
+      screenSharingStream.getTracks().forEach(t=>t.stop())
+      setScreenSharingStream(null);
     }
-    // setIsScreenShared(!isScreenShared);
+    
   };
   return (
     <IconButton onClick={handleShareScreenToggle} style={{ color: "white" }}>
-      {isScreenShared ? <ScreenShareIcon /> : <StopScreenShareIcon />}
+      {!isScreenSharingActive ? <ScreenShareIcon /> : <StopScreenShareIcon />}
     </IconButton>
   );
 }

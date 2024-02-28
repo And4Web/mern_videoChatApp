@@ -1,5 +1,5 @@
 import store from '../redux/store';
-import {setOpenRoom, setRoomDetails, setActiveRooms, setAudioOnly, setLocalStream, setRemoteStreams} from '../redux/actions/roomActions'
+import {setOpenRoom, setRoomDetails, setActiveRooms, setAudioOnly, setLocalStream, setRemoteStreams, setScreenSharingStream} from '../redux/actions/roomActions'
 import * as socketConnection from './socketConnection'
 import * as webRTCHandler from './webRTCHandler';
 
@@ -61,6 +61,7 @@ export const leaveRoom = () => {
 
   const localStream = store.getState().room.localStream;
   const remoteStreams = store.getState().room.remoteStreams;
+  // const screenShareStream = store.getState().room.screenSharingStream;
   console.log("RoomHandler leaveRoom >>> ", localStream, remoteStreams)
 
   if(localStream){
@@ -70,6 +71,7 @@ export const leaveRoom = () => {
     localStream.getTracks().forEach(track=>{
       track.stop();
     })
+  
     store.dispatch(setLocalStream(null));
   }
 
