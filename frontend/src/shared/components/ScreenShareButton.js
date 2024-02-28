@@ -3,6 +3,8 @@ import IconButton from "@mui/material/IconButton";
 import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 import StopScreenShareIcon from "@mui/icons-material/StopScreenShare";
 
+import * as webRTCHandler from '../../realtimeComm/webRTCHandler';
+
 const constraints = {
   audio: false,
   video: true
@@ -26,9 +28,11 @@ function ScreenShareButton({
 
       if(stream){
         setScreenSharingStream(stream);
-        // webRTCHandler.switchOutgoingVideo tracks
+        // switch outgoing tracks from localStream to screenShare stream
+        webRTCHandler.switchOutgoingTracks(stream);
       }else{
-        // webRTCHandler.switchOutgoingTracks
+        // switch outgoing tracks from screenShare stream to localStream
+        webRTCHandler.switchOutgoingTracks(localStream);
         setScreenSharingStream.getTrack().forEach(t=>t.stop())
         setScreenSharingStream(null);
       }
