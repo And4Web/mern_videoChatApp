@@ -67,13 +67,17 @@ export const leaveRoom = () => {
   if(localStream){
     // every local stream comes with audio track and video track, we will stop both these track on leaving the room for the user.
     console.log("roomHandler.js localStream stopped...")
-
-    localStream.getTracks().forEach(track=>{
-      track.stop();
-    })
-  
+    localStream.getTracks().forEach(track=>track.stop());  
     store.dispatch(setLocalStream(null));
   }
+
+  const screenSharingStream = store.getState().room.screenSharingStream;
+
+  if(screenSharingStream){
+    screenSharingStream.getTracks().forEach(track=>track.stop())
+    store.dispatch(setScreenSharingStream(null))
+  }
+
 
   store.dispatch(setRemoteStreams([]));
   webRTCHandler.closeAllConnections();
