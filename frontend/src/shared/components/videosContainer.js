@@ -14,10 +14,10 @@ const MainContainer = styled("div")({
   
 })
 
-function VideosContainer({localStream, audioOnly, remoteStreams}) {
+function VideosContainer({localStream, audioOnly, remoteStreams, screenSharingStream}) {
   return (
     <MainContainer>      
-        {<Video stream={localStream} isLocalStream isAudioOnly={audioOnly}/>}
+        {<Video stream={screenSharingStream ? screenSharingStream : localStream} isLocalStream isAudioOnly={audioOnly}/>}
         {remoteStreams.map(stream=>{
           return (
             <Video key={stream.id} stream={stream}/>
