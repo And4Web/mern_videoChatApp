@@ -16,12 +16,12 @@ const MainContainer = styled("div")({
 });
 
 
-function Sidebar({activeRooms}) {
-  // console.log("sidebar.js >>> ", activeRooms)
+function Sidebar({activeRooms, isUserInRoom}) {
+  // console.log("sidebar.js >>> ", isUserInRoom)
   return (
     <MainContainer>
       <MainPageButton/>
-      <CreateRoomButton/>
+      <CreateRoomButton isUserInRoom={isUserInRoom}/>
       {activeRooms?.map(room=>(
           <ActiveRoomButton
             roomId={room.roomId}
