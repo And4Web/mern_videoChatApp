@@ -7,13 +7,13 @@ import * as roomHandler from "../../realtimeComm/roomHandler";
 function CreateRoomButton({ isUserInRoom }) {
   const createNewRoomHandler = () => {
     //Creating a room and sending infor to the server about this
-    console.log("CreateRoomButton.js >>> Creating new room...", isUserInRoom);
+    // console.log("CreateRoomButton.js >>> Creating new room...", isUserInRoom);
     roomHandler.createNewRoom();
   };
 
   return (
     <Button
-      disabled={isUserInRoom ? true : false}
+      disabled={isUserInRoom}
       style={{
         width: "3rem",
         height: "3rem",
