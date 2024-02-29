@@ -24,13 +24,13 @@ const MainContainer = styled("div")({
 
 
 function RoomButtons(props) {
-  const {localStream} = props;
+  const {localStream, isUserJoinedWithAudioOnly} = props;
   return (
     <MainContainer>
-      <ScreenShareButton {...props}/>
+      {!isUserJoinedWithAudioOnly && <ScreenShareButton {...props}/>}
       <MicButton localStream={localStream}/>
       <CloseRoomButton/>
-      <CameraButton localStream={localStream}/>
+      {!isUserJoinedWithAudioOnly && <CameraButton localStream={localStream}/>}
     </MainContainer>
   )
 }

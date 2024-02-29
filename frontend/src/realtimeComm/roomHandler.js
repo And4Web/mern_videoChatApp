@@ -1,5 +1,5 @@
 import store from '../redux/store';
-import {setOpenRoom, setRoomDetails, setActiveRooms, setAudioOnly, setLocalStream, setRemoteStreams, setScreenSharingStream} from '../redux/actions/roomActions'
+import {setOpenRoom, setRoomDetails, setActiveRooms, setAudioOnly, setLocalStream, setRemoteStreams, setScreenSharingStream, setUserJoinedWithAudioOnly} from '../redux/actions/roomActions'
 import * as socketConnection from './socketConnection'
 import * as webRTCHandler from './webRTCHandler';
 
@@ -7,6 +7,10 @@ import * as webRTCHandler from './webRTCHandler';
 export const createNewRoom = () => {
   const successCallback = () => {
     store.dispatch(setOpenRoom(true, true))
+
+    const audioOnly = store.getState().room.audioOnly;
+    store.dispatch(setUserJoinedWithAudioOnly(audioOnly));
+
     socketConnection.createNewRoom();
     console.log("RoomHandler createNewRoom >>> ", store.getState().room.localStream)
   }
@@ -47,6 +51,9 @@ export const joinRoom = (roomId) => {
     store.dispatch(setRoomDetails({roomId}));
     store.dispatch(setOpenRoom(false, true));
 
+    const audioOnly = store.getState().room.audioOnly;
+    store.dispatch(setUserJoinedWithAudioOnly(audioOnly));
+
     socketConnection.joinRoom({roomId});
     console.log("RoomHandler joinRoom >>> ", store.getState().room.localStream, store.getState().room.remoteStreams);
   }
@@ -77,7 +84,6 @@ export const leaveRoom = () => {
     screenSharingStream.getTracks().forEach(track=>track.stop())
     store.dispatch(setScreenSharingStream(null))
   }
-
 
   store.dispatch(setRemoteStreams([]));
   webRTCHandler.closeAllConnections();
